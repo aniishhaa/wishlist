@@ -173,12 +173,8 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .install-app-btn:hover {
@@ -311,14 +307,8 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-content {
@@ -530,14 +520,8 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .wishlist-item:hover {
@@ -672,12 +656,8 @@
         }
 
         @keyframes fadeInModal {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal.active {
@@ -807,14 +787,8 @@
         }
 
         @keyframes slideInRight {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         .toast-icon {
@@ -834,14 +808,8 @@
         }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .modal-header {
@@ -891,7 +859,7 @@
             color: var(--earth-dark);
         }
 
-        .form-group input, .form-group textarea {
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 16px 20px;
             border: 2px solid var(--warm-gray);
@@ -907,7 +875,7 @@
             min-height: 80px;
         }
 
-        .form-group input:focus, .form-group textarea:focus {
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
             outline: none;
             border-color: var(--accent);
             background: white;
@@ -1259,13 +1227,8 @@
             font-family: 'Work Sans', sans-serif;
         }
 
-        .savings-value.positive {
-            color: #4ade80;
-        }
-
-        .savings-value.negative {
-            color: #f87171;
-        }
+        .savings-value.positive { color: #4ade80; }
+        .savings-value.negative { color: #f87171; }
 
         /* Trip Details Page */
         .trip-details-page {
@@ -1363,13 +1326,8 @@
             color: var(--earth-dark);
         }
 
-        .stat-value.positive {
-            color: #16a34a;
-        }
-
-        .stat-value.negative {
-            color: #dc2626;
-        }
+        .stat-value.positive { color: #16a34a; }
+        .stat-value.negative { color: #dc2626; }
 
         .categories-section {
             margin-bottom: 40px;
@@ -1436,13 +1394,8 @@
             font-size: 16px;
         }
 
-        .difference.positive {
-            color: #16a34a;
-        }
-
-        .difference.negative {
-            color: #dc2626;
-        }
+        .difference.positive { color: #16a34a; }
+        .difference.negative { color: #dc2626; }
 
         .category-actions {
             display: flex;
@@ -1518,40 +1471,17 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 20px;
-            }
+            .container { padding: 0 20px; }
 
-            header {
-                padding: 20px 0 15px;
-            }
+            header { padding: 20px 0 15px; }
 
-            .logo-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
+            .logo-icon { width: 40px; height: 40px; font-size: 20px; }
+            .logo-text { font-size: 24px; }
 
-            .logo-text {
-                font-size: 24px;
-            }
+            header nav { display: none; }
+            .hamburger { display: flex; }
 
-            header nav {
-                display: none; /* Hide desktop nav on mobile */
-            }
-
-            .hamburger {
-                display: flex; /* Show hamburger on mobile */
-            }
-
-            nav a {
-                font-size: 14px;
-            }
-
-            .add-btn {
-                padding: 12px 24px;
-                font-size: 14px;
-            }
+            .add-btn { padding: 12px 24px; font-size: 14px; }
 
             .install-app-btn {
                 padding: 12px 20px;
@@ -1560,139 +1490,45 @@
                 margin-top: 10px;
             }
 
-            .hero {
-                padding: 60px 0 40px;
-            }
+            .hero { padding: 60px 0 40px; }
+            .hero h1 { font-size: 48px; line-height: 1; }
+            .hero-description { font-size: 18px; margin-bottom: 35px; }
+            .hero-content { flex-direction: column; gap: 40px; }
 
-            .hero h1 {
-                font-size: 48px;
-                line-height: 1;
-            }
+            .hero-actions { flex-direction: row; width: 100%; gap: 12px; }
+            .primary-btn, .secondary-btn { flex: 1; padding: 16px; }
 
-            .hero-description {
-                font-size: 18px;
-                margin-bottom: 35px;
-            }
-
-            .hero-content {
-                flex-direction: column;
-                gap: 40px;
-            }
-
-            .hero-actions {
-                flex-direction: row; /* Keep side by side on mobile */
-                width: 100%;
-                gap: 12px;
-            }
-
-            .primary-btn, .secondary-btn {
-                flex: 1; /* Equal width buttons */
-                padding: 16px;
-            }
-
-            .section-title {
-                font-size: 32px;
-            }
+            .section-title { font-size: 32px; }
 
             .wishlist-grid {
-                grid-template-columns: repeat(2, 1fr); /* 2 items per row on mobile */
+                grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
             }
 
-            .wishlist-item {
-                max-width: 100%;
-            }
+            .item-image { height: 180px; }
+            .item-content { padding: 15px; }
+            .item-name { font-size: 16px; }
+            .item-price { font-size: 20px; }
+            .item-tag { font-size: 10px; padding: 3px 8px; }
+            .item-link { font-size: 12px; }
 
-            .item-image {
-                height: 180px; /* Smaller height for 2-column layout */
-            }
+            .item-actions { opacity: 1; }
+            .edit-btn, .delete-btn { opacity: 1; width: 36px; height: 36px; font-size: 16px; }
 
-            .item-content {
-                padding: 15px; /* Reduced padding */
-            }
+            .modal-content { padding: 30px 20px; width: 95%; max-height: 85vh; }
+            .modal-title { font-size: 28px; }
 
-            .item-name {
-                font-size: 16px; /* Smaller font */
-            }
+            .delete-modal-content { padding: 30px 20px; width: 95%; }
+            .delete-icon { font-size: 56px; }
+            .delete-modal-title { font-size: 24px; }
 
-            .item-price {
-                font-size: 20px; /* Smaller price */
-            }
-
-            .item-tag {
-                font-size: 10px;
-                padding: 3px 8px;
-            }
-
-            .item-link {
-                font-size: 12px;
-            }
-
-            .item-actions {
-                opacity: 1;
-            }
-
-            .edit-btn, .delete-btn {
-                opacity: 1;
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
-            }
-
-            .modal-content {
-                padding: 30px 20px;
-                width: 95%;
-                max-height: 85vh;
-            }
-
-            .modal-title {
-                font-size: 28px;
-            }
-
-            .delete-modal-content {
-                padding: 30px 20px;
-                width: 95%;
-            }
-
-            .delete-icon {
-                font-size: 56px;
-            }
-
-            .delete-modal-title {
-                font-size: 24px;
-            }
-
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-
-            .controls-wrapper {
-                width: 100%;
-                flex-direction: column;
-            }
-
-            .search-box {
-                width: 100%;
-            }
-
-            .filter-sort {
-                width: 100%;
-                flex-direction: column;
-            }
-
-            .filter-sort select {
-                width: 100%;
-            }
-
-            .export-import-btns {
-                width: 100%;
-            }
-
-            .export-btn, .import-btn {
-                flex: 1;
-            }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .controls-wrapper { width: 100%; flex-direction: column; }
+            .search-box { width: 100%; }
+            .filter-sort { width: 100%; flex-direction: column; }
+            .filter-sort select { width: 100%; }
+            .export-import-btns { width: 100%; }
+            .export-btn, .import-btn { flex: 1; }
 
             .category-filters {
                 overflow-x: auto;
@@ -1702,14 +1538,8 @@
                 padding-bottom: 5px;
             }
 
-            .category-filters::-webkit-scrollbar {
-                display: none;
-            }
-
-            .category-tag {
-                white-space: nowrap;
-                flex-shrink: 0;
-            }
+            .category-filters::-webkit-scrollbar { display: none; }
+            .category-tag { white-space: nowrap; flex-shrink: 0; }
 
             .toast {
                 bottom: 20px;
@@ -1719,120 +1549,50 @@
                 font-size: 14px;
             }
 
-            .form-group {
-                margin-bottom: 20px;
-            }
+            .form-group { margin-bottom: 20px; }
+            .image-preview { height: 180px; }
+            .tag-input-wrapper { flex-direction: column; }
+            .tag-input { min-width: 100%; }
+            .add-tag-btn { width: 100%; }
 
-            .image-preview {
-                height: 180px;
-            }
-
-            .tag-input-wrapper {
-                flex-direction: column;
-            }
-
-            .tag-input {
-                min-width: 100%;
-            }
-
-            .add-tag-btn {
-                width: 100%;
-            }
-
-            /* Trips Page Mobile */
-            .trips-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-
-            .trip-card {
-                height: 280px;
-            }
-
-            .trip-name {
-                font-size: 26px;
-            }
-
-            .budget-value {
-                font-size: 18px;
-            }
-
-            .savings-value {
-                font-size: 24px;
-            }
-        }
-
-        /* Extra small devices */
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 38px;
-            }
-
-            .section-title {
-                font-size: 28px;
-            }
-
-            /* Keep 2 columns even on small phones, just make them smaller */
-            .wishlist-grid {
-                gap: 12px;
-            }
-
-            .item-image {
-                height: 160px;
-            }
-
-            .item-content {
-                padding: 12px;
-            }
-
-            .item-name {
-                font-size: 14px;
-            }
-
-            .item-price {
-                font-size: 18px;
-            }
-        }
-
-        /* Improve touch targets for mobile */
-        @media (hover: none) and (pointer: coarse) {
-            button, a, select, input[type="file"] + label {
-                min-height: 44px;
-                min-width: 44px;
-            }
-
-            .wishlist-item {
-                -webkit-tap-highlight-color: rgba(61, 40, 23, 0.1);
-            }
-        }
-        @media (max-width: 768px) {
+            .trips-grid { grid-template-columns: 1fr; gap: 25px; }
+            .trip-card { height: 280px; }
+            .trip-name { font-size: 26px; }
+            .budget-value { font-size: 18px; }
+            .savings-value { font-size: 24px; }
 
             .categories-table {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
             }
-            .categories-table::-webkit-scrollbar {
-                height: 6px;
-            }
-            
-            .categories-table::-webkit-scrollbar-thumb {
-                background: var(--sage);
-                border-radius: 10px;
-            }
-        
+
+            .categories-table::-webkit-scrollbar { height: 6px; }
+            .categories-table::-webkit-scrollbar-thumb { background: var(--sage); border-radius: 10px; }
+
             .table-header,
-            .table-row {
-                min-width: 600px; /* keeps full layout */
-            }
-            
-        
+            .table-row { min-width: 600px; }
         }
 
-        /* Prevent zoom on input focus for iOS */
-        @supports (-webkit-touch-callout: none) {
-            input, select, textarea {
-                font-size: 16px !important;
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 38px; }
+            .section-title { font-size: 28px; }
+            .wishlist-grid { gap: 12px; }
+            .item-image { height: 160px; }
+            .item-content { padding: 12px; }
+            .item-name { font-size: 14px; }
+            .item-price { font-size: 18px; }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            button, a, select, input[type="file"] + label {
+                min-height: 44px;
+                min-width: 44px;
             }
+            .wishlist-item { -webkit-tap-highlight-color: rgba(61, 40, 23, 0.1); }
+        }
+
+        @supports (-webkit-touch-callout: none) {
+            input, select, textarea { font-size: 16px !important; }
         }
     </style>
 </head>
@@ -1844,11 +1604,11 @@
                     <div class="logo-icon">✨</div>
                     <div class="logo-text">My Wishlist</div>
                 </div>
-                
+
                 <!-- Desktop Navigation -->
                 <nav>
                     <a href="#" onclick="showWishlistPage()">Explore</a>
-                    <a href="#trip" onclick="showTripsPage(event)">Trip</a>                    
+                    <a href="#trip" onclick="showTripsPage(event)">Trip</a>
                     <a href="#blog">Blog</a>
                     <a href="#support">Support</a>
                     <button class="install-app-btn" id="installAppBtn" style="display: none;" onclick="installApp()">📱 Install App</button>
@@ -1911,7 +1671,7 @@
                     <div class="export-import-btns">
                         <button class="export-btn" onclick="exportWishlist()">📥 Export</button>
                         <button class="import-btn" onclick="document.getElementById('importFile').click()">📤 Import</button>
-                            <input type="file" id="importFile" accept=".json" style="display:none" onchange="importWishlist(event)">
+                        <input type="file" id="importFile" accept=".json" style="display:none" onchange="importWishlist(event)">
                     </div>
                 </div>
             </div>
@@ -1975,7 +1735,7 @@
             </div>
             <form id="addItemForm" onsubmit="saveItem(event)">
                 <input type="hidden" id="itemId">
-                
+
                 <div class="form-group">
                     <label for="itemName">Item Name</label>
                     <input type="text" id="itemName" required placeholder="Enter item name">
@@ -2052,7 +1812,7 @@
             </div>
             <form id="tripForm" onsubmit="saveTrip(event)">
                 <input type="hidden" id="tripId">
-                
+
                 <div class="form-group">
                     <label for="tripName">Trip Name</label>
                     <input type="text" id="tripName" required placeholder="e.g., Goa Beach Vacation">
@@ -2091,7 +1851,7 @@
             </div>
             <form id="categoryForm" onsubmit="saveCategory(event)">
                 <input type="hidden" id="categoryId">
-                
+
                 <div class="form-group">
                     <label for="categoryName">Category Name</label>
                     <select id="categoryName" required>
@@ -2126,9 +1886,9 @@
 
     <script>
         // Initialize wishlist from localStorage with backup fallback
-        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || 
-                      JSON.parse(localStorage.getItem('wishlist_backup')) || 
-                      [];
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) ||
+                       JSON.parse(localStorage.getItem('wishlist_backup')) ||
+                       [];
         let currentTags = [];
         let editingItemId = null;
         let currentFilter = 'all';
@@ -2136,40 +1896,38 @@
         let itemToDelete = null;
 
         // Initialize trips
-        let trips = JSON.parse(localStorage.getItem('trips')) || 
-                   JSON.parse(localStorage.getItem('trips_backup')) || 
-                   [];
+        let trips = JSON.parse(localStorage.getItem('trips')) ||
+                    JSON.parse(localStorage.getItem('trips_backup')) ||
+                    [];
         let editingTripId = null;
         let currentTripImageData = null;
         let tripToDelete = null;
+        let currentTripId = null;
+        let editingCategoryId = null;
 
         // Render wishlist on page load
         renderWishlist();
         updateCategoryFilters();
 
-        // Mobile Menu Functions
+        // ==================== MOBILE MENU ====================
+
         function toggleMobileMenu() {
             const hamburger = document.getElementById('hamburger');
             const mobileMenu = document.getElementById('mobileMenu');
             const overlay = document.getElementById('mobileOverlay');
-            
+
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
             overlay.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
-            if (mobileMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
+
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         }
 
         function closeMobileMenu() {
             const hamburger = document.getElementById('hamburger');
             const mobileMenu = document.getElementById('mobileMenu');
             const overlay = document.getElementById('mobileOverlay');
-            
+
             hamburger.classList.remove('active');
             mobileMenu.classList.remove('active');
             overlay.classList.remove('active');
@@ -2178,22 +1936,20 @@
 
         function openModalFromMenu() {
             closeMobileMenu();
-            // Wait for overlay animation to finish (300ms matches CSS transition)
-            setTimeout(() => {
-                openModal();
-            }, 300);
+            setTimeout(() => { openModal(); }, 300);
         }
+
+        // ==================== TOAST ====================
 
         function showToast(message, duration = 3000) {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
             toastMessage.textContent = message;
             toast.classList.add('active');
-            
-            setTimeout(() => {
-                toast.classList.remove('active');
-            }, duration);
+            setTimeout(() => { toast.classList.remove('active'); }, duration);
         }
+
+        // ==================== WISHLIST ITEM CRUD ====================
 
         function deleteItem(id) {
             itemToDelete = id;
@@ -2209,7 +1965,6 @@
             if (itemToDelete) {
                 wishlist = wishlist.filter(item => item.id !== itemToDelete);
                 localStorage.setItem('wishlist', JSON.stringify(wishlist));
-                // SAFETY NET: Keep a backup copy
                 localStorage.setItem('wishlist_backup', JSON.stringify(wishlist));
                 closeDeleteModal();
                 renderWishlist();
@@ -2223,9 +1978,8 @@
             editingItemId = itemId;
             currentTags = [];
             currentImageData = null;
-            
+
             if (itemId) {
-                // Edit mode
                 const item = wishlist.find(i => i.id === itemId);
                 if (item) {
                     document.getElementById('modalTitle').textContent = 'Edit Item';
@@ -2237,24 +1991,22 @@
                     document.getElementById('itemLink').value = item.link;
                     currentTags = item.tags || [];
                     currentImageData = item.image;
-                    
-                    // Show image preview
+
                     if (item.image || item.imageUrl) {
-                        const preview = document.getElementById('imagePreview');
-                        preview.innerHTML = `<img src="${item.image || item.imageUrl}" alt="Preview">`;
+                        document.getElementById('imagePreview').innerHTML =
+                            `<img src="${item.image || item.imageUrl}" alt="Preview">`;
                     }
-                    
                     updateTagsDisplay();
                 }
             } else {
-                // Add mode
                 document.getElementById('modalTitle').textContent = 'Add New Item';
                 document.getElementById('submitBtn').textContent = 'Add to Wishlist';
                 document.getElementById('addItemForm').reset();
-                document.getElementById('imagePreview').innerHTML = '<span class="image-preview-text">Image preview will appear here</span>';
+                document.getElementById('imagePreview').innerHTML =
+                    '<span class="image-preview-text">Image preview will appear here</span>';
                 updateTagsDisplay();
             }
-            
+
             document.getElementById('addModal').classList.add('active');
         }
 
@@ -2264,14 +2016,17 @@
             editingItemId = null;
             currentTags = [];
             currentImageData = null;
-            document.getElementById('imagePreview').innerHTML = '<span class="image-preview-text">Image preview will appear here</span>';
+            document.getElementById('imagePreview').innerHTML =
+                '<span class="image-preview-text">Image preview will appear here</span>';
         }
 
+        // FIX 3: formatPrice — preserve cursor by only updating when value actually changes
         function formatPrice(input) {
-            // Remove everything except digits and decimal point
-            let value = input.value.replace(/[^\d.]/g, '');
-            // Only format if there's a value
-            input.value = value ? `/-${value}` : '';
+            let raw = input.value.replace(/[^\d.]/g, '');
+            let formatted = raw ? `/-${raw}` : '';
+            if (input.value !== formatted) {
+                input.value = formatted;
+            }
         }
 
         function handleImageUpload(event) {
@@ -2280,8 +2035,8 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     currentImageData = e.target.result;
-                    const preview = document.getElementById('imagePreview');
-                    preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                    document.getElementById('imagePreview').innerHTML =
+                        `<img src="${e.target.result}" alt="Preview">`;
                     document.getElementById('itemImage').value = '';
                 };
                 reader.readAsDataURL(file);
@@ -2291,15 +2046,14 @@
         function handleImageURL(url) {
             if (url) {
                 currentImageData = null;
-                const preview = document.getElementById('imagePreview');
-                preview.innerHTML = `<img src="${url}" alt="Preview" onerror="this.parentElement.innerHTML='<span class=\\'image-preview-text\\'>Invalid image URL</span>'">`;
+                document.getElementById('imagePreview').innerHTML =
+                    `<img src="${url}" alt="Preview" onerror="this.parentElement.innerHTML='<span class=\\'image-preview-text\\'>Invalid image URL</span>'">`;
             }
         }
 
         function addTag() {
             const input = document.getElementById('itemCategory');
             const tag = input.value.trim();
-            
             if (tag && !currentTags.includes(tag)) {
                 currentTags.push(tag);
                 updateTagsDisplay();
@@ -2313,8 +2067,7 @@
         }
 
         function updateTagsDisplay() {
-            const display = document.getElementById('tagsDisplay');
-            display.innerHTML = currentTags.map(tag => `
+            document.getElementById('tagsDisplay').innerHTML = currentTags.map(tag => `
                 <div class="tag-chip">
                     ${tag}
                     <span class="tag-chip-remove" onclick="removeTag('${tag}')">×</span>
@@ -2324,7 +2077,7 @@
 
         function saveItem(event) {
             event.preventDefault();
-            
+
             const itemData = {
                 id: editingItemId || Date.now(),
                 name: document.getElementById('itemName').value,
@@ -2333,24 +2086,21 @@
                 imageUrl: document.getElementById('itemImage').value,
                 link: document.getElementById('itemLink').value,
                 tags: currentTags,
-                dateAdded: editingItemId ? 
-                    wishlist.find(i => i.id === editingItemId).dateAdded : 
+                dateAdded: editingItemId ?
+                    wishlist.find(i => i.id === editingItemId).dateAdded :
                     new Date().toISOString()
             };
 
             if (editingItemId) {
-                // Update existing item
                 const index = wishlist.findIndex(i => i.id === editingItemId);
                 wishlist[index] = itemData;
             } else {
-                // Add new item
                 wishlist.push(itemData);
             }
 
             localStorage.setItem('wishlist', JSON.stringify(wishlist));
-            // SAFETY NET: Keep a backup copy
             localStorage.setItem('wishlist_backup', JSON.stringify(wishlist));
-            
+
             closeModal();
             renderWishlist();
             updateCategoryFilters();
@@ -2360,17 +2110,15 @@
         function renderWishlist() {
             const grid = document.getElementById('wishlistGrid');
             const searchQuery = document.getElementById('searchBox').value.toLowerCase();
-            
+
             let filteredWishlist = wishlist;
-            
-            // Filter by category
+
             if (currentFilter !== 'all') {
-                filteredWishlist = filteredWishlist.filter(item => 
+                filteredWishlist = filteredWishlist.filter(item =>
                     item.tags && item.tags.includes(currentFilter)
                 );
             }
-            
-            // Filter by search
+
             if (searchQuery) {
                 filteredWishlist = filteredWishlist.filter(item =>
                     item.name.toLowerCase().includes(searchQuery) ||
@@ -2396,9 +2144,9 @@
                         <button class="edit-btn" onclick="event.stopPropagation(); openModal(${item.id})" title="Edit item">✏️</button>
                         <button class="delete-btn" onclick="event.stopPropagation(); deleteItem(${item.id})" title="Remove item">✕</button>
                     </div>
-                    <img src="${item.image || item.imageUrl}" 
-                         alt="${item.name}" 
-                         class="item-image" 
+                    <img src="${item.image || item.imageUrl}"
+                         alt="${item.name}"
+                         class="item-image"
                          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23E8DFD8%22 width=%22400%22 height=%22400%22/%3E%3Ctext fill=%22%233D2817%22 font-family=%22sans-serif%22 font-size=%2220%22 text-anchor=%22middle%22 x=%22200%22 y=%22210%22%3EImage not available%3C/text%3E%3C/svg%3E'">
                     <div class="item-content">
                         <h3 class="item-name">${item.name}</h3>
@@ -2408,11 +2156,8 @@
                                 ${item.tags.map(tag => `<span class="item-tag">${tag}</span>`).join('')}
                             </div>
                         ` : ''}
-                        <a href="${item.link}"
-                           class="item-link"
-                           target="_blank"
-                           onclick="event.stopPropagation()">
-                           View product →
+                        <a href="${item.link}" class="item-link" target="_blank" onclick="event.stopPropagation()">
+                            View product →
                         </a>
                     </div>
                 </div>
@@ -2422,13 +2167,10 @@
         function updateCategoryFilters() {
             const allTags = new Set();
             wishlist.forEach(item => {
-                if (item.tags) {
-                    item.tags.forEach(tag => allTags.add(tag));
-                }
+                if (item.tags) item.tags.forEach(tag => allTags.add(tag));
             });
 
-            const filtersContainer = document.getElementById('categoryFilters');
-            filtersContainer.innerHTML = `
+            document.getElementById('categoryFilters').innerHTML = `
                 <div class="category-tag ${currentFilter === 'all' ? 'active' : ''}" onclick="filterByCategory('all')">All Items</div>
                 ${Array.from(allTags).map(tag => `
                     <div class="category-tag ${currentFilter === tag ? 'active' : ''}" onclick="filterByCategory('${tag}')">${tag}</div>
@@ -2442,49 +2184,34 @@
             renderWishlist();
         }
 
-        function filterWishlist() {
-            renderWishlist();
-        }
+        function filterWishlist() { renderWishlist(); }
 
         function sortItems() {
             const sortValue = document.getElementById('sortSelect').value;
-            
             switch(sortValue) {
                 case 'newest':
-                    wishlist.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
-                    break;
+                    wishlist.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded)); break;
                 case 'oldest':
-                    wishlist.sort((a, b) => new Date(a.dateAdded) - new Date(b.dateAdded));
-                    break;
+                    wishlist.sort((a, b) => new Date(a.dateAdded) - new Date(b.dateAdded)); break;
                 case 'price-low':
-                    wishlist.sort((a, b) => parseFloat(a.price.replace(/[^0-9.-]+/g, '')) - parseFloat(b.price.replace(/[^0-9.-]+/g, '')));
-                    break;
+                    wishlist.sort((a, b) => parseFloat(a.price.replace(/[^0-9.-]+/g, '')) - parseFloat(b.price.replace(/[^0-9.-]+/g, ''))); break;
                 case 'price-high':
-                    wishlist.sort((a, b) => parseFloat(b.price.replace(/[^0-9.-]+/g, '')) - parseFloat(a.price.replace(/[^0-9.-]+/g, '')));
-                    break;
+                    wishlist.sort((a, b) => parseFloat(b.price.replace(/[^0-9.-]+/g, '')) - parseFloat(a.price.replace(/[^0-9.-]+/g, ''))); break;
                 case 'name':
-                    wishlist.sort((a, b) => a.name.localeCompare(b.name));
-                    break;
+                    wishlist.sort((a, b) => a.name.localeCompare(b.name)); break;
             }
-            
             renderWishlist();
         }
 
         function exportWishlist() {
-            if (wishlist.length === 0) {
-                showToast('No items to export!');
-                return;
-            }
-            
+            if (wishlist.length === 0) { showToast('No items to export!'); return; }
             const dataStr = JSON.stringify(wishlist, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(dataBlob);
+            const url = URL.createObjectURL(new Blob([dataStr], { type: 'application/json' }));
             const link = document.createElement('a');
             link.href = url;
             link.download = `wishlist-${new Date().toISOString().split('T')[0]}.json`;
             link.click();
             URL.revokeObjectURL(url);
-            
             showToast(`Exported ${wishlist.length} items successfully! 📥`);
         }
 
@@ -2496,10 +2223,7 @@
                     try {
                         const importedData = JSON.parse(e.target.result);
                         if (Array.isArray(importedData)) {
-                            // Store imported data temporarily
                             window.tempImportData = importedData;
-                            
-                            // Create custom confirmation modal
                             const confirmModal = document.createElement('div');
                             confirmModal.className = 'delete-modal active';
                             confirmModal.id = 'importConfirmModal';
@@ -2531,7 +2255,6 @@
             if (window.tempImportData) {
                 wishlist = window.tempImportData;
                 localStorage.setItem('wishlist', JSON.stringify(wishlist));
-                // SAFETY NET: Keep a backup copy
                 localStorage.setItem('wishlist_backup', JSON.stringify(wishlist));
                 renderWishlist();
                 updateCategoryFilters();
@@ -2543,9 +2266,7 @@
 
         function closeImportModal() {
             const modal = document.getElementById('importConfirmModal');
-            if (modal) {
-                modal.remove();
-            }
+            if (modal) modal.remove();
             delete window.tempImportData;
         }
 
@@ -2553,29 +2274,21 @@
             document.getElementById('wishlist').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Close modal when clicking outside
+        // Modal outside-click handlers
         document.getElementById('addModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
+            if (e.target === this) closeModal();
         });
-
-        // Close delete modal when clicking outside
         document.getElementById('deleteModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeDeleteModal();
-            }
+            if (e.target === this) closeDeleteModal();
         });
 
-        // Allow Enter key to add tags
+        // Enter key to add tags
         document.getElementById('itemCategory').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                addTag();
-            }
+            if (e.key === 'Enter') { e.preventDefault(); addTag(); }
         });
 
-        // PWA Install Prompt
+        // ==================== PWA INSTALL ====================
+
         let deferredPrompt;
         const installBtn = document.getElementById('installAppBtn');
         const installBtnMobile = document.getElementById('installAppBtnMobile');
@@ -2583,17 +2296,14 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            // Show install buttons
             if (installBtn) installBtn.style.display = 'block';
             if (installBtnMobile) installBtnMobile.style.display = 'block';
         });
 
-        // Manual install function
         async function installApp() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
-                
                 if (outcome === 'accepted') {
                     showToast('Installing app... 🎉');
                     if (installBtn) installBtn.style.display = 'none';
@@ -2603,7 +2313,6 @@
                 }
                 deferredPrompt = null;
             } else {
-                // Show instructions for manual installation
                 showInstallInstructions();
             }
         }
@@ -2619,17 +2328,14 @@
                     </div>
                     <div style="line-height: 1.8; color: var(--earth-dark);">
                         <p style="margin-bottom: 20px; font-size: 16px; font-weight: 500;">Follow these steps to add Wishlist to your home screen:</p>
-                        
                         <div style="background: var(--cream); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
                             <strong style="color: var(--accent); font-size: 16px; display: block; margin-bottom: 15px;">📱 Chrome (Android):</strong>
                             <ol style="margin: 0; padding-left: 20px; line-height: 2;">
                                 <li>Tap the <strong>three dots (⋮)</strong> menu at the top right</li>
-                                <li>Scroll down and tap <strong>"Add to Home screen"</strong></li>
+                                <li>Tap <strong>"Add to Home screen"</strong></li>
                                 <li>Edit the name if you want, then tap <strong>"Add"</strong></li>
-                                <li>The app icon will appear on your home screen! 🎉</li>
                             </ol>
                         </div>
-
                         <div style="background: var(--warm-gray); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
                             <strong style="color: var(--accent); font-size: 16px; display: block; margin-bottom: 15px;">🦊 Firefox (Android):</strong>
                             <ol style="margin: 0; padding-left: 20px; line-height: 2;">
@@ -2638,60 +2344,31 @@
                                 <li>Tap <strong>"Add"</strong> to confirm</li>
                             </ol>
                         </div>
-
-                        <div style="background: linear-gradient(135deg, var(--terracotta), var(--accent)); color: white; padding: 20px; border-radius: 12px;">
-                            <strong style="font-size: 15px; display: block; margin-bottom: 10px;">✨ Why add to home screen?</strong>
-                            <ul style="margin: 0; padding-left: 20px; opacity: 0.95;">
-                                <li>Quick access with one tap</li>
-                                <li>Works offline (all data saved locally)</li>
-                                <li>Looks like a real app</li>
-                                <li>No browser bars - full screen!</li>
-                            </ul>
-                        </div>
                     </div>
                     <button onclick="this.closest('.modal').remove()" class="primary-btn" style="width: 100%; margin-top: 25px; padding: 16px;">Got it! 👍</button>
                 </div>
             `;
             document.body.appendChild(modal);
-            
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.remove();
-                }
-            });
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
         }
 
-        // Always show install button on mobile
         if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            // Check if already running as installed app
-            const isInstalled = window.matchMedia('(display-mode: standalone)').matches || 
-                               window.navigator.standalone || 
-                               document.referrer.includes('android-app://');
-            
+            const isInstalled = window.matchMedia('(display-mode: standalone)').matches ||
+                                window.navigator.standalone ||
+                                document.referrer.includes('android-app://');
             if (!isInstalled) {
-                // Show buttons after 1 second
                 setTimeout(() => {
-                    if (installBtn && !deferredPrompt) {
-                        installBtn.style.display = 'block';
-                    }
-                    if (installBtnMobile && !deferredPrompt) {
-                        installBtnMobile.style.display = 'block';
-                    }
+                    if (installBtn && !deferredPrompt) installBtn.style.display = 'block';
+                    if (installBtnMobile && !deferredPrompt) installBtnMobile.style.display = 'block';
                 }, 1000);
             }
         }
 
-        // Handle app installed event
-        window.addEventListener('appinstalled', () => {
-            showToast('App installed successfully! 🎉');
-        });
+        window.addEventListener('appinstalled', () => { showToast('App installed successfully! 🎉'); });
 
+        // ==================== TRIPS PAGE ====================
 
-        // ==================== TRIPS PAGE FUNCTIONS ====================
-        
-        let currentTripId = null;
-        let editingCategoryId = null;
-
+        // FIX 1: showTripsPage no longer immediately calls showWishlistPage()
         function showTripsPage(event) {
             event.preventDefault();
             document.querySelector('.hero').style.display = 'none';
@@ -2699,8 +2376,6 @@
             document.getElementById('tripsPage').style.display = 'block';
             document.getElementById('tripDetailsPage').style.display = 'none';
             renderTrips();
-            showWishlistPage();
-            renderWishlist();
             closeMobileMenu();
         }
 
@@ -2709,12 +2384,13 @@
             document.querySelector('.wishlist-section').style.display = 'block';
             document.getElementById('tripsPage').style.display = 'none';
             document.getElementById('tripDetailsPage').style.display = 'none';
+            renderWishlist();
         }
 
         function openTripModal(tripId = null) {
             editingTripId = tripId;
             currentTripImageData = null;
-            
+
             if (tripId) {
                 const trip = trips.find(t => t.id === tripId);
                 if (trip) {
@@ -2724,19 +2400,20 @@
                     document.getElementById('tripName').value = trip.name;
                     document.getElementById('tripImageUrl').value = trip.imageUrl || '';
                     currentTripImageData = trip.image;
-                    
+
                     if (trip.image || trip.imageUrl) {
-                        const preview = document.getElementById('tripImagePreview');
-                        preview.innerHTML = `<img src="${trip.image || trip.imageUrl}" alt="Preview">`;
+                        document.getElementById('tripImagePreview').innerHTML =
+                            `<img src="${trip.image || trip.imageUrl}" alt="Preview">`;
                     }
                 }
             } else {
                 document.getElementById('tripModalTitle').textContent = 'Add New Trip';
                 document.getElementById('tripSubmitBtn').textContent = 'Add Trip';
                 document.getElementById('tripForm').reset();
-                document.getElementById('tripImagePreview').innerHTML = '<span class="image-preview-text">Upload a trip image</span>';
+                document.getElementById('tripImagePreview').innerHTML =
+                    '<span class="image-preview-text">Upload a trip image</span>';
             }
-            
+
             document.getElementById('tripModal').classList.add('active');
         }
 
@@ -2745,81 +2422,67 @@
             document.getElementById('tripForm').reset();
             editingTripId = null;
             currentTripImageData = null;
-            document.getElementById('tripImagePreview').innerHTML = '<span class="image-preview-text">Upload a trip image</span>';
+            document.getElementById('tripImagePreview').innerHTML =
+                '<span class="image-preview-text">Upload a trip image</span>';
         }
 
         function formatTripPrice(input) {
-            let value = input.value.replace(/[^\d.]/g, '');
-            input.value = value ? `/-${value}` : '';
+            let raw = input.value.replace(/[^\d.]/g, '');
+            let formatted = raw ? `/-${raw}` : '';
+            if (input.value !== formatted) input.value = formatted;
         }
 
         function handleTripImageUpload(event) {
-                const file = event.target.files[0];
-                if (!file) return;
-            
-                const img = new Image();
-                const reader = new FileReader();
-            
-                reader.onload = function(e) {
-                    img.src = e.target.result;
-                };
-            
-                img.onload = function() {
-                    const canvas = document.createElement("canvas");
-                    const maxWidth = 900;
-            
-                    const scale = maxWidth / img.width;
-                    canvas.width = maxWidth;
-                    canvas.height = img.height * scale;
-            
-                    const ctx = canvas.getContext("2d");
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            
-                    const compressed = canvas.toDataURL("image/jpeg", 0.7);
-            
-                    currentTripImageData = compressed;
-            
-                    document.getElementById("tripImagePreview").innerHTML =
-                        `<img src="${compressed}" alt="Preview">`;
-            
-                    document.getElementById("tripImageUrl").value = "";
-    };
-
-    reader.readAsDataURL(file);
-}
+            const file = event.target.files[0];
+            if (!file) return;
+            const img = new Image();
+            const reader = new FileReader();
+            reader.onload = function(e) { img.src = e.target.result; };
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const maxWidth = 900;
+                const scale = maxWidth / img.width;
+                canvas.width = maxWidth;
+                canvas.height = img.height * scale;
+                canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+                const compressed = canvas.toDataURL('image/jpeg', 0.7);
+                currentTripImageData = compressed;
+                document.getElementById('tripImagePreview').innerHTML =
+                    `<img src="${compressed}" alt="Preview">`;
+                document.getElementById('tripImageUrl').value = '';
+            };
+            reader.readAsDataURL(file);
+        }
 
         function handleTripImageURL(url) {
             if (url) {
                 currentTripImageData = null;
-                const preview = document.getElementById('tripImagePreview');
-                preview.innerHTML = `<img src="${url}" alt="Preview" onerror="this.parentElement.innerHTML='<span class=\\'image-preview-text\\'>Invalid image URL</span>'">`;
+                document.getElementById('tripImagePreview').innerHTML =
+                    `<img src="${url}" alt="Preview" onerror="this.parentElement.innerHTML='<span class=\\'image-preview-text\\'>Invalid image URL</span>'">`;
             }
         }
 
         function saveTrip(event) {
             event.preventDefault();
-            
             const tripData = {
                 id: editingTripId || Date.now(),
                 name: document.getElementById('tripName').value,
                 image: currentTripImageData,
                 imageUrl: document.getElementById('tripImageUrl').value,
                 categories: editingTripId ? trips.find(t => t.id === editingTripId).categories : [],
-                dateAdded: editingTripId ? 
-                    trips.find(t => t.id === editingTripId).dateAdded : 
+                dateAdded: editingTripId ?
+                    trips.find(t => t.id === editingTripId).dateAdded :
                     new Date().toISOString()
             };
 
             if (editingTripId) {
-                const index = trips.findIndex(t => t.id === editingTripId);
-                trips[index] = tripData;
+                trips[trips.findIndex(t => t.id === editingTripId)] = tripData;
             } else {
                 trips.push(tripData);
             }
 
             localStorage.setItem('trips', JSON.stringify(trips));
             localStorage.setItem('trips_backup', JSON.stringify(trips));
-            
             closeTripModal();
             renderTrips();
             showToast(editingTripId ? 'Trip updated successfully!' : 'Trip added successfully!');
@@ -2863,26 +2526,18 @@
         }
 
         function calculateTripTotals(trip) {
-            let totalEstimated = 0;
-            let totalActual = 0;
-            
+            let totalEstimated = 0, totalActual = 0;
             if (trip.categories && trip.categories.length > 0) {
                 trip.categories.forEach(cat => {
                     totalEstimated += parseFloat(cat.estimated.replace(/[^\d.]/g, '')) || 0;
                     totalActual += parseFloat(cat.actual.replace(/[^\d.]/g, '')) || 0;
                 });
             }
-            
-            return {
-                estimated: totalEstimated,
-                actual: totalActual,
-                savings: totalEstimated - totalActual
-            };
+            return { estimated: totalEstimated, actual: totalActual, savings: totalEstimated - totalActual };
         }
 
         function renderTrips() {
             const grid = document.getElementById('tripsGrid');
-            
             if (trips.length === 0) {
                 grid.innerHTML = `
                     <div class="empty-state">
@@ -2897,9 +2552,9 @@
 
             grid.innerHTML = trips.map(trip => {
                 const totals = calculateTripTotals(trip);
-                const bgImage = trip.image || trip.imageUrl || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Cdefs%3E%3ClinearGradient id=%22grad%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 style=%22stop-color:%23C8866B;stop-opacity:1%22 /%3E%3Cstop offset=%22100%25%22 style=%22stop-color:%23B85C38;stop-opacity:1%22 /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill=%22url(%23grad)%22 width=%22400%22 height=%22400%22/%3E%3C/svg%3E';
+                const bgImage = trip.image || trip.imageUrl ||
+                    'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Cdefs%3E%3ClinearGradient id=%22grad%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 style=%22stop-color:%23C8866B;stop-opacity:1%22 /%3E%3Cstop offset=%22100%25%22 style=%22stop-color:%23B85C38;stop-opacity:1%22 /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill=%22url(%23grad)%22 width=%22400%22 height=%22400%22/%3E%3C/svg%3E';
                 const savingsClass = totals.savings >= 0 ? 'positive' : 'negative';
-                
                 return `
                     <div class="trip-card" onclick="showTripDetails(${trip.id})">
                         <div class="trip-card-bg" style="background-image: url('${bgImage}');"></div>
@@ -2911,7 +2566,6 @@
                                     <button class="trip-delete-btn" onclick="event.stopPropagation(); deleteTrip(${trip.id})" title="Delete trip">✕</button>
                                 </div>
                             </div>
-                            
                             <div>
                                 <div class="trip-budget-info">
                                     <div class="budget-item">
@@ -2923,7 +2577,6 @@
                                         <div class="budget-value">${totals.actual.toFixed(2)}/-</div>
                                     </div>
                                 </div>
-                                
                                 <div class="trip-savings">
                                     <div class="savings-label">${totals.savings >= 0 ? 'Savings' : 'Over Budget'}</div>
                                     <div class="savings-value ${savingsClass}">${Math.abs(totals.savings).toFixed(2)}/-</div>
@@ -2935,16 +2588,15 @@
             }).join('');
         }
 
-        // Trip Details Functions
+        // ==================== TRIP DETAILS ====================
+
         function showTripDetails(tripId) {
             currentTripId = tripId;
             const trip = trips.find(t => t.id === tripId);
             if (!trip) return;
-            
             document.getElementById('tripsPage').style.display = 'none';
             document.getElementById('tripDetailsPage').style.display = 'block';
             document.getElementById('tripDetailsTitle').textContent = trip.name;
-            
             renderTripSummary(trip);
             renderCategories(trip);
             renderTripTotals(trip);
@@ -2960,7 +2612,6 @@
             const totals = calculateTripTotals(trip);
             const bgImage = trip.image || trip.imageUrl || '';
             const savingsClass = totals.savings >= 0 ? 'positive' : 'negative';
-            
             document.getElementById('tripSummaryCard').innerHTML = `
                 ${bgImage ? `<div class="trip-summary-bg" style="background-image: url('${bgImage}');"></div>` : ''}
                 <div class="trip-summary-content">
@@ -2985,7 +2636,6 @@
 
         function renderCategories(trip) {
             const table = document.getElementById('categoriesTable');
-            
             if (!trip.categories || trip.categories.length === 0) {
                 table.innerHTML = `
                     <div style="padding: 40px; text-align: center;">
@@ -2995,7 +2645,6 @@
                 `;
                 return;
             }
-            
             table.innerHTML = `
                 <div class="table-header">
                     <div>Category</div>
@@ -3009,12 +2658,11 @@
                     const actual = parseFloat(cat.actual.replace(/[^\d.]/g, '')) || 0;
                     const diff = estimated - actual;
                     const diffClass = diff >= 0 ? 'positive' : 'negative';
-                    
                     return `
                         <div class="table-row">
                             <div class="category-name">${cat.name}</div>
                             <div class="category-amount">${cat.estimated}</div>
-                            <div class="category-amount">${cat.actual || '0.00/-'}</div>
+                            <div class="category-amount">${cat.actual || '/-0.00'}</div>
                             <div class="difference ${diffClass}">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}/-</div>
                             <div class="category-actions">
                                 <button class="edit-category-btn" onclick="openCategoryModal(${cat.id})" title="Edit">✏️</button>
@@ -3028,7 +2676,6 @@
 
         function renderTripTotals(trip) {
             const totals = calculateTripTotals(trip);
-            
             document.getElementById('tripTotals').innerHTML = `
                 <div class="totals-grid">
                     <div class="total-item">
@@ -3047,14 +2694,13 @@
             `;
         }
 
-        // Category Functions
+        // ==================== CATEGORY CRUD ====================
+
         function openCategoryModal(categoryId = null) {
             editingCategoryId = categoryId;
-            
             if (categoryId) {
                 const trip = trips.find(t => t.id === currentTripId);
                 const category = trip.categories.find(c => c.id === categoryId);
-                
                 if (category) {
                     document.getElementById('categoryModalTitle').textContent = 'Edit Category';
                     document.getElementById('categorySubmitBtn').textContent = 'Save Changes';
@@ -3068,7 +2714,6 @@
                 document.getElementById('categorySubmitBtn').textContent = 'Add Category';
                 document.getElementById('categoryForm').reset();
             }
-            
             document.getElementById('categoryModal').classList.add('active');
         }
 
@@ -3078,94 +2723,58 @@
             editingCategoryId = null;
         }
 
+        // FIX 2: saveCategory — removed duplicate `const trip` declaration
         function saveCategory(event) {
             event.preventDefault();
-            
+
             const trip = trips.find(t => t.id === currentTripId);
             if (!trip.categories) trip.categories = [];
-            
+
             const categoryData = {
                 id: editingCategoryId || Date.now(),
                 name: document.getElementById('categoryName').value,
                 estimated: document.getElementById('estimatedAmount').value,
                 actual: document.getElementById('actualAmount').value || '/-0.00'
             };
-            
+
             if (editingCategoryId) {
                 const index = trip.categories.findIndex(c => c.id === editingCategoryId);
                 trip.categories[index] = categoryData;
             } else {
                 trip.categories.push(categoryData);
             }
-            
+
             localStorage.setItem('trips', JSON.stringify(trips));
             localStorage.setItem('trips_backup', JSON.stringify(trips));
-            
+
             closeCategoryModal();
 
-            const trip = trips.find(t => t.id === currentTripId);
-            renderTripSummary(trip);
-            renderCategories(trip);
-            renderTripTotals(trip);
-            
-            showToast(editingCategoryId ? 'Category updated!' : 'Category added!');
+            // Re-fetch trip reference after modal close (editingCategoryId is now null)
+            const updatedTrip = trips.find(t => t.id === currentTripId);
+            renderTripSummary(updatedTrip);
+            renderCategories(updatedTrip);
+            renderTripTotals(updatedTrip);
+
+            showToast(editingCategoryId !== null ? 'Category updated!' : 'Category added!');
         }
 
+        // FIX 4: deleteCategory — actually removes the category from the array
         function deleteCategory(categoryId) {
             const trip = trips.find(t => t.id === currentTripId);
+            if (!trip) { showToast('Trip not found'); return; }
+            if (!trip.categories) { trip.categories = []; return; }
 
-            if (!trip) {
-                showToast("Trip not found");
-                return;
-            }
-            
-            if (!trip.categories) {
-                trip.categories = [];
-            }
-            
+            trip.categories = trip.categories.filter(c => c.id !== categoryId);
+
             localStorage.setItem('trips', JSON.stringify(trips));
             localStorage.setItem('trips_backup', JSON.stringify(trips));
-            
+
             renderTripSummary(trip);
             renderCategories(trip);
             renderTripTotals(trip);
-            
+
             showToast('Category deleted!');
         }
-
-        // SERVICE WORKER DISABLED - Causes cache issues with localStorage
-        // Will be re-implemented properly later with separate sw.js file
-        /*
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                const swCode = `
-                    const CACHE_NAME = 'wishlist-v1';
-                    self.addEventListener('install', (e) => {
-                        e.waitUntil(
-                            caches.open(CACHE_NAME).then((cache) => {
-                                return cache.addAll(['./', './index.html']);
-                            })
-                        );
-                    });
-                    self.addEventListener('fetch', (e) => {
-                        e.respondWith(
-                            caches.match(e.request).then((response) => {
-                                return response || fetch(e.request);
-                            })
-                        );
-                    });
-                `;
-                
-                const blob = new Blob([swCode], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(blob);
-                
-                navigator.serviceWorker.register(swUrl)
-                    .catch(() => {
-                        // Silent fail for service worker registration
-                    });
-            });
-        }
-        */
     </script>
 </body>
 </html>

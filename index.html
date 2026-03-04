@@ -2701,6 +2701,7 @@
             renderTrips();
             showWishlistPage();
             renderWishlist();
+            closeMobileMenu();
         }
 
         function showWishlistPage() {
@@ -3125,7 +3126,6 @@
             localStorage.setItem('trips', JSON.stringify(trips));
             localStorage.setItem('trips_backup', JSON.stringify(trips));
             
-            const trip = trips.find(t => t.id === currentTripId);
             renderTripSummary(trip);
             renderCategories(trip);
             renderTripTotals(trip);

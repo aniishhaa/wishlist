@@ -3101,7 +3101,12 @@
             localStorage.setItem('trips_backup', JSON.stringify(trips));
             
             closeCategoryModal();
-            showTripDetails(currentTripId);
+
+            const trip = trips.find(t => t.id === currentTripId);
+            renderTripSummary(trip);
+            renderCategories(trip);
+            renderTripTotals(trip);
+            
             showToast(editingCategoryId ? 'Category updated!' : 'Category added!');
         }
 
@@ -3120,7 +3125,11 @@
             localStorage.setItem('trips', JSON.stringify(trips));
             localStorage.setItem('trips_backup', JSON.stringify(trips));
             
-            showTripDetails(currentTripId);
+            const trip = trips.find(t => t.id === currentTripId);
+            renderTripSummary(trip);
+            renderCategories(trip);
+            renderTripTotals(trip);
+            
             showToast('Category deleted!');
         }
 

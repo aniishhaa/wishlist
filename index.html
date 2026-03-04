@@ -1910,10 +1910,8 @@
                     </div>
                     <div class="export-import-btns">
                         <button class="export-btn" onclick="exportWishlist()">📥 Export</button>
-                        <label class="import-btn">
-                            📤 Import
-                            <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importWishlist(event)">
-                        </label>
+                        <button class="import-btn" onclick="document.getElementById('importFile').click()">📤 Import</button>
+                            <input type="file" id="importFile" accept=".json" style="display:none" onchange="importWishlist(event)">
                     </div>
                 </div>
             </div>
@@ -2701,6 +2699,8 @@
             document.getElementById('tripsPage').style.display = 'block';
             document.getElementById('tripDetailsPage').style.display = 'none';
             renderTrips();
+            showWishlistPage();
+            renderWishlist();
         }
 
         function showWishlistPage() {

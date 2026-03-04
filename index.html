@@ -1088,6 +1088,434 @@
             margin-bottom: 30px;
         }
 
+        /* Trips Page Styles */
+        .trips-page {
+            padding: 60px 0 100px;
+        }
+
+        .trips-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .trips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 35px;
+        }
+
+        .trip-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px var(--shadow);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            height: 320px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .trip-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 16px 50px rgba(61, 40, 23, 0.2);
+        }
+
+        .trip-card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .trip-card-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(61, 40, 23, 0.3) 0%,
+                rgba(61, 40, 23, 0.6) 50%,
+                rgba(61, 40, 23, 0.85) 100%
+            );
+        }
+
+        .trip-card-content {
+            position: relative;
+            z-index: 2;
+            padding: 30px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .trip-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .trip-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            letter-spacing: -0.5px;
+        }
+
+        .trip-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .trip-edit-btn, .trip-delete-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            color: white;
+        }
+
+        .trip-edit-btn:hover, .trip-delete-btn:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .trip-budget-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .budget-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .budget-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .budget-value {
+            font-size: 22px;
+            font-weight: 700;
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        .trip-savings {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 18px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .savings-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.95;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .savings-value {
+            font-size: 28px;
+            font-weight: 800;
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        .savings-value.positive {
+            color: #4ade80;
+        }
+
+        .savings-value.negative {
+            color: #f87171;
+        }
+
+        /* Trip Details Page */
+        .trip-details-page {
+            padding: 60px 0 100px;
+        }
+
+        .trip-details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .back-btn {
+            background: var(--warm-gray);
+            color: var(--earth-dark);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--sage);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .trip-summary-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px var(--shadow);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            min-height: 180px;
+        }
+
+        .trip-summary-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+        }
+
+        .trip-summary-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .trip-summary-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--earth-dark);
+        }
+
+        .trip-summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-box {
+            background: var(--cream);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid var(--warm-gray);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(61, 40, 23, 0.7);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--earth-dark);
+        }
+
+        .stat-value.positive {
+            color: #16a34a;
+        }
+
+        .stat-value.negative {
+            color: #dc2626;
+        }
+
+        .categories-section {
+            margin-bottom: 40px;
+        }
+
+        .categories-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--earth-dark);
+        }
+
+        .categories-table {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .table-header, .table-row {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 1.5fr 1.5fr 80px;
+            gap: 20px;
+            padding: 20px 25px;
+            align-items: center;
+        }
+
+        .table-header {
+            background: var(--earth-dark);
+            color: var(--cream);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table-row {
+            border-bottom: 1px solid var(--warm-gray);
+            transition: all 0.2s ease;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-row:hover {
+            background: var(--cream);
+        }
+
+        .category-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--earth-dark);
+        }
+
+        .category-amount {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .difference {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .difference.positive {
+            color: #16a34a;
+        }
+
+        .difference.negative {
+            color: #dc2626;
+        }
+
+        .category-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .edit-category-btn, .delete-category-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .edit-category-btn {
+            background: var(--sage);
+            color: white;
+        }
+
+        .edit-category-btn:hover {
+            background: var(--terracotta);
+            transform: scale(1.1);
+        }
+
+        .delete-category-btn {
+            background: var(--accent);
+            color: white;
+        }
+
+        .delete-category-btn:hover {
+            background: #a04428;
+            transform: scale(1.1);
+        }
+
+        .trip-totals {
+            background: linear-gradient(135deg, var(--terracotta), var(--accent));
+            color: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(184, 92, 56, 0.3);
+        }
+
+        .totals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .total-item {
+            text-align: center;
+        }
+
+        .total-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .total-value {
+            font-size: 32px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -1310,6 +1738,28 @@
             .add-tag-btn {
                 width: 100%;
             }
+
+            /* Trips Page Mobile */
+            .trips-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .trip-card {
+                height: 280px;
+            }
+
+            .trip-name {
+                font-size: 26px;
+            }
+
+            .budget-value {
+                font-size: 18px;
+            }
+
+            .savings-value {
+                font-size: 24px;
+            }
         }
 
         /* Extra small devices */
@@ -1376,7 +1826,7 @@
                 <!-- Desktop Navigation -->
                 <nav>
                     <a href="#explore">Explore</a>
-                    <a href="#about">About</a>
+                    <a href="#trip" onclick="showTripsPage(event)">Trip</a>                    
                     <a href="#blog">Blog</a>
                     <a href="#support">Support</a>
                     <button class="install-app-btn" id="installAppBtn" style="display: none;" onclick="installApp()">📱 Install App</button>
@@ -1402,6 +1852,7 @@
             <a href="#explore" onclick="closeMobileMenu()">Explore</a>
             <a href="#about" onclick="closeMobileMenu()">About</a>
             <a href="#blog" onclick="closeMobileMenu()">Blog</a>
+            <a href="#trip" onclick="showTripsPage(event); closeMobileMenu()">Trip</a>
             <a href="#support" onclick="closeMobileMenu()">Support</a>
             <button class="install-app-btn" id="installAppBtnMobile" style="display: none;" onclick="installApp(); closeMobileMenu()">📱 Install App</button>
             <button class="add-btn" onclick="openModalFromMenu()">Add item</button>
@@ -1458,6 +1909,41 @@
                     <button class="primary-btn" onclick="openModal()">Add Your First Item</button>
                 </div>
             </div>
+        </section>
+
+        <!-- Trips Page -->
+        <section class="trips-page" id="tripsPage" style="display: none;">
+            <div class="trips-header">
+                <h2 class="section-title">My Trips</h2>
+                <button class="primary-btn" onclick="openTripModal()">Add Trip</button>
+            </div>
+
+            <div class="trips-grid" id="tripsGrid">
+                <div class="empty-state">
+                    <div class="empty-state-icon">✈️</div>
+                    <h3>No trips planned yet</h3>
+                    <p>Start planning your dream adventures!</p>
+                    <button class="primary-btn" onclick="openTripModal()">Add Your First Trip</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trip Details Page -->
+        <section class="trip-details-page" id="tripDetailsPage" style="display: none;">
+            <div class="trip-details-header">
+                <button class="back-btn" onclick="backToTrips()">← Back to Trips</button>
+                <h2 class="section-title" id="tripDetailsTitle">Trip Details</h2>
+                <button class="primary-btn" onclick="openCategoryModal()">Add Category</button>
+            </div>
+
+            <div class="trip-summary-card" id="tripSummaryCard"></div>
+
+            <div class="categories-section">
+                <h3 class="categories-title">Budget Breakdown</h3>
+                <div class="categories-table" id="categoriesTable"></div>
+            </div>
+
+            <div class="trip-totals" id="tripTotals"></div>
         </section>
     </div>
 
@@ -1538,14 +2024,105 @@
         <span id="toastMessage">Item removed successfully!</span>
     </div>
 
+    <!-- Add/Edit Trip Modal -->
+    <div class="modal" id="tripModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="tripModalTitle">Add New Trip</h2>
+                <button class="close-btn" onclick="closeTripModal()">&times;</button>
+            </div>
+            <form id="tripForm" onsubmit="saveTrip(event)">
+                <input type="hidden" id="tripId">
+                
+                <div class="form-group">
+                    <label for="tripName">Trip Name</label>
+                    <input type="text" id="tripName" required placeholder="e.g., Goa Beach Vacation">
+                </div>
+
+                <div class="form-group">
+                    <label>Trip Image (Background)</label>
+                    <div class="image-upload-wrapper">
+                        <div class="image-preview" id="tripImagePreview">
+                            <span class="image-preview-text">Upload a trip image</span>
+                        </div>
+                        <div class="upload-options">
+                            <label for="tripImageFile" class="file-input-label">
+                                📷 Upload Image
+                            </label>
+                            <input type="file" id="tripImageFile" accept="image/*" onchange="handleTripImageUpload(event)">
+                        </div>
+                        <input type="url" id="tripImageUrl" placeholder="Or paste image URL" oninput="handleTripImageURL(this.value)">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn" id="tripSubmitBtn">Add Trip</button>
+                    <button type="button" class="cancel-btn" onclick="closeTripModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Category Modal -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="categoryModalTitle">Add Category</h2>
+                <button class="close-btn" onclick="closeCategoryModal()">&times;</button>
+            </div>
+            <form id="categoryForm" onsubmit="saveCategory(event)">
+                <input type="hidden" id="categoryId">
+                
+                <div class="form-group">
+                    <label for="categoryName">Category Name</label>
+                    <select id="categoryName" required>
+                        <option value="">Select a category</option>
+                        <option value="Food">Food</option>
+                        <option value="Stay">Stay</option>
+                        <option value="Transport">Travel</option>
+                        <option value="Miscellaneous">Miscellaneous</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Alcohol">Shopping</option>
+                        <option value="Puff-Puff">Shopping</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="estimatedAmount">Estimated Budget</label>
+                    <input type="text" id="estimatedAmount" required placeholder="/-0.00" oninput="formatTripPrice(this)">
+                </div>
+
+                <div class="form-group">
+                    <label for="actualAmount">Actual Expense (Optional)</label>
+                    <input type="text" id="actualAmount" placeholder="/-0.00" oninput="formatTripPrice(this)">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn" id="categorySubmitBtn">Add Category</button>
+                    <button type="button" class="cancel-btn" onclick="closeCategoryModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
-        // Initialize wishlist from localStorage
-        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        // Initialize wishlist from localStorage with backup fallback
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || 
+                      JSON.parse(localStorage.getItem('wishlist_backup')) || 
+                      [];
         let currentTags = [];
         let editingItemId = null;
         let currentFilter = 'all';
         let currentImageData = null;
         let itemToDelete = null;
+
+        // Initialize trips
+        let trips = JSON.parse(localStorage.getItem('trips')) || 
+                   JSON.parse(localStorage.getItem('trips_backup')) || 
+                   [];
+        let editingTripId = null;
+        let currentTripImageData = null;
+        let tripToDelete = null;
 
         // Render wishlist on page load
         renderWishlist();
@@ -1613,6 +2190,8 @@
             if (itemToDelete) {
                 wishlist = wishlist.filter(item => item.id !== itemToDelete);
                 localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                // SAFETY NET: Keep a backup copy
+                localStorage.setItem('wishlist_backup', JSON.stringify(wishlist));
                 closeDeleteModal();
                 renderWishlist();
                 updateCategoryFilters();
@@ -1670,18 +2249,11 @@
         }
 
         function formatPrice(input) {
-    // Remove everything except digits
-    let value = input.value.replace(/[^\d]/g, '');
-
-    if (!value) {
-        input.value = '';
-        return;
-    }
-
-    // Format with Indian Rupee symbol
-    input.value = `₹${value}`;
-}
-
+            // Remove everything except digits and decimal point
+            let value = input.value.replace(/[^\d.]/g, '');
+            // Only format if there's a value
+            input.value = value ? `/-${value}` : '';
+        }
 
         function handleImageUpload(event) {
             const file = event.target.files[0];
@@ -1757,6 +2329,8 @@
             }
 
             localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            // SAFETY NET: Keep a backup copy
+            localStorage.setItem('wishlist_backup', JSON.stringify(wishlist));
             
             closeModal();
             renderWishlist();
@@ -1938,6 +2512,8 @@
             if (window.tempImportData) {
                 wishlist = window.tempImportData;
                 localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                // SAFETY NET: Keep a backup copy
+                localStorage.setItem('wishlist_backup', JSON.stringify(wishlist));
                 renderWishlist();
                 updateCategoryFilters();
                 showToast('Wishlist imported successfully! ✓');
@@ -2091,7 +2667,446 @@
             showToast('App installed successfully! 🎉');
         });
 
+
+        // ==================== TRIPS PAGE FUNCTIONS ====================
         
+        let currentTripId = null;
+        let editingCategoryId = null;
+
+        function showTripsPage(event) {
+            event.preventDefault();
+            document.querySelector('.hero').style.display = 'none';
+            document.querySelector('.wishlist-section').style.display = 'none';
+            document.getElementById('tripsPage').style.display = 'block';
+            document.getElementById('tripDetailsPage').style.display = 'none';
+            renderTrips();
+        }
+
+        function showWishlistPage() {
+            document.querySelector('.hero').style.display = 'block';
+            document.querySelector('.wishlist-section').style.display = 'block';
+            document.getElementById('tripsPage').style.display = 'none';
+            document.getElementById('tripDetailsPage').style.display = 'none';
+        }
+
+        function openTripModal(tripId = null) {
+            editingTripId = tripId;
+            currentTripImageData = null;
+            
+            if (tripId) {
+                const trip = trips.find(t => t.id === tripId);
+                if (trip) {
+                    document.getElementById('tripModalTitle').textContent = 'Edit Trip';
+                    document.getElementById('tripSubmitBtn').textContent = 'Save Changes';
+                    document.getElementById('tripId').value = trip.id;
+                    document.getElementById('tripName').value = trip.name;
+                    document.getElementById('tripImageUrl').value = trip.imageUrl || '';
+                    currentTripImageData = trip.image;
+                    
+                    if (trip.image || trip.imageUrl) {
+                        const preview = document.getElementById('tripImagePreview');
+                        preview.innerHTML = `<img src="${trip.image || trip.imageUrl}" alt="Preview">`;
+                    }
+                }
+            } else {
+                document.getElementById('tripModalTitle').textContent = 'Add New Trip';
+                document.getElementById('tripSubmitBtn').textContent = 'Add Trip';
+                document.getElementById('tripForm').reset();
+                document.getElementById('tripImagePreview').innerHTML = '<span class="image-preview-text">Upload a trip image</span>';
+            }
+            
+            document.getElementById('tripModal').classList.add('active');
+        }
+
+        function closeTripModal() {
+            document.getElementById('tripModal').classList.remove('active');
+            document.getElementById('tripForm').reset();
+            editingTripId = null;
+            currentTripImageData = null;
+            document.getElementById('tripImagePreview').innerHTML = '<span class="image-preview-text">Upload a trip image</span>';
+        }
+
+        function formatTripPrice(input) {
+            let value = input.value.replace(/[^\d.]/g, '');
+            input.value = value ? `/-${value}` : '';
+        }
+
+        function handleTripImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentTripImageData = e.target.result;
+                    const preview = document.getElementById('tripImagePreview');
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                    document.getElementById('tripImageUrl').value = '';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleTripImageURL(url) {
+            if (url) {
+                currentTripImageData = null;
+                const preview = document.getElementById('tripImagePreview');
+                preview.innerHTML = `<img src="${url}" alt="Preview" onerror="this.parentElement.innerHTML='<span class=\\'image-preview-text\\'>Invalid image URL</span>'">`;
+            }
+        }
+
+        function saveTrip(event) {
+            event.preventDefault();
+            
+            const tripData = {
+                id: editingTripId || Date.now(),
+                name: document.getElementById('tripName').value,
+                image: currentTripImageData,
+                imageUrl: document.getElementById('tripImageUrl').value,
+                categories: editingTripId ? trips.find(t => t.id === editingTripId).categories : [],
+                dateAdded: editingTripId ? 
+                    trips.find(t => t.id === editingTripId).dateAdded : 
+                    new Date().toISOString()
+            };
+
+            if (editingTripId) {
+                const index = trips.findIndex(t => t.id === editingTripId);
+                trips[index] = tripData;
+            } else {
+                trips.push(tripData);
+            }
+
+            localStorage.setItem('trips', JSON.stringify(trips));
+            localStorage.setItem('trips_backup', JSON.stringify(trips));
+            
+            closeTripModal();
+            renderTrips();
+            showToast(editingTripId ? 'Trip updated successfully!' : 'Trip added successfully!');
+        }
+
+        function deleteTrip(id) {
+            tripToDelete = id;
+            const confirmModal = document.createElement('div');
+            confirmModal.className = 'delete-modal active';
+            confirmModal.id = 'tripDeleteModal';
+            confirmModal.innerHTML = `
+                <div class="delete-modal-content">
+                    <div class="delete-icon">🗑️</div>
+                    <h3 class="delete-modal-title">Remove Trip?</h3>
+                    <p class="delete-modal-text">Are you sure you want to remove this trip? This action cannot be undone.</p>
+                    <div class="delete-modal-actions">
+                        <button class="cancel-delete-btn" onclick="closeTripDeleteModal()">Keep It</button>
+                        <button class="confirm-delete-btn" onclick="confirmTripDelete()">Yes, Remove</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(confirmModal);
+        }
+
+        function closeTripDeleteModal() {
+            const modal = document.getElementById('tripDeleteModal');
+            if (modal) modal.remove();
+            tripToDelete = null;
+        }
+
+        function confirmTripDelete() {
+            if (tripToDelete) {
+                trips = trips.filter(trip => trip.id !== tripToDelete);
+                localStorage.setItem('trips', JSON.stringify(trips));
+                localStorage.setItem('trips_backup', JSON.stringify(trips));
+                closeTripDeleteModal();
+                renderTrips();
+                showToast('Trip removed successfully!');
+                tripToDelete = null;
+            }
+        }
+
+        function calculateTripTotals(trip) {
+            let totalEstimated = 0;
+            let totalActual = 0;
+            
+            if (trip.categories && trip.categories.length > 0) {
+                trip.categories.forEach(cat => {
+                    totalEstimated += parseFloat(cat.estimated.replace(/[^\d.]/g, '')) || 0;
+                    totalActual += parseFloat(cat.actual.replace(/[^\d.]/g, '')) || 0;
+                });
+            }
+            
+            return {
+                estimated: totalEstimated,
+                actual: totalActual,
+                savings: totalEstimated - totalActual
+            };
+        }
+
+        function renderTrips() {
+            const grid = document.getElementById('tripsGrid');
+            
+            if (trips.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">✈️</div>
+                        <h3>No trips planned yet</h3>
+                        <p>Start planning your dream adventures!</p>
+                        <button class="primary-btn" onclick="openTripModal()">Add Your First Trip</button>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = trips.map(trip => {
+                const totals = calculateTripTotals(trip);
+                const bgImage = trip.image || trip.imageUrl || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Cdefs%3E%3ClinearGradient id=%22grad%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 style=%22stop-color:%23C8866B;stop-opacity:1%22 /%3E%3Cstop offset=%22100%25%22 style=%22stop-color:%23B85C38;stop-opacity:1%22 /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill=%22url(%23grad)%22 width=%22400%22 height=%22400%22/%3E%3C/svg%3E';
+                const savingsClass = totals.savings >= 0 ? 'positive' : 'negative';
+                
+                return `
+                    <div class="trip-card" onclick="showTripDetails(${trip.id})">
+                        <div class="trip-card-bg" style="background-image: url('${bgImage}');"></div>
+                        <div class="trip-card-content">
+                            <div class="trip-card-header">
+                                <h3 class="trip-name">${trip.name}</h3>
+                                <div class="trip-actions">
+                                    <button class="trip-edit-btn" onclick="event.stopPropagation(); openTripModal(${trip.id})" title="Edit trip">✏️</button>
+                                    <button class="trip-delete-btn" onclick="event.stopPropagation(); deleteTrip(${trip.id})" title="Delete trip">✕</button>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="trip-budget-info">
+                                    <div class="budget-item">
+                                        <div class="budget-label">Estimated</div>
+                                        <div class="budget-value">${totals.estimated.toFixed(2)}/-</div>
+                                    </div>
+                                    <div class="budget-item">
+                                        <div class="budget-label">Actual</div>
+                                        <div class="budget-value">${totals.actual.toFixed(2)}/-</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="trip-savings">
+                                    <div class="savings-label">${totals.savings >= 0 ? 'Savings' : 'Over Budget'}</div>
+                                    <div class="savings-value ${savingsClass}">${Math.abs(totals.savings).toFixed(2)}/-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Trip Details Functions
+        function showTripDetails(tripId) {
+            currentTripId = tripId;
+            const trip = trips.find(t => t.id === tripId);
+            if (!trip) return;
+            
+            document.getElementById('tripsPage').style.display = 'none';
+            document.getElementById('tripDetailsPage').style.display = 'block';
+            document.getElementById('tripDetailsTitle').textContent = trip.name;
+            
+            renderTripSummary(trip);
+            renderCategories(trip);
+            renderTripTotals(trip);
+        }
+
+        function backToTrips() {
+            currentTripId = null;
+            document.getElementById('tripDetailsPage').style.display = 'none';
+            document.getElementById('tripsPage').style.display = 'block';
+        }
+
+        function renderTripSummary(trip) {
+            const totals = calculateTripTotals(trip);
+            const bgImage = trip.image || trip.imageUrl || '';
+            const savingsClass = totals.savings >= 0 ? 'positive' : 'negative';
+            
+            document.getElementById('tripSummaryCard').innerHTML = `
+                ${bgImage ? `<div class="trip-summary-bg" style="background-image: url('${bgImage}');"></div>` : ''}
+                <div class="trip-summary-content">
+                    <h3 class="trip-summary-name">${trip.name}</h3>
+                    <div class="trip-summary-stats">
+                        <div class="stat-box">
+                            <div class="stat-label">Total Estimated</div>
+                            <div class="stat-value">${totals.estimated.toFixed(2)}/-</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Total Actual</div>
+                            <div class="stat-value">${totals.actual.toFixed(2)}/-</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">${totals.savings >= 0 ? 'Savings' : 'Over Budget'}</div>
+                            <div class="stat-value ${savingsClass}">${Math.abs(totals.savings).toFixed(2)}/-</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCategories(trip) {
+            const table = document.getElementById('categoriesTable');
+            
+            if (!trip.categories || trip.categories.length === 0) {
+                table.innerHTML = `
+                    <div style="padding: 40px; text-align: center;">
+                        <p style="color: rgba(61, 40, 23, 0.6); margin-bottom: 20px;">No categories added yet. Start adding budget categories!</p>
+                        <button class="primary-btn" onclick="openCategoryModal()">Add First Category</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            table.innerHTML = `
+                <div class="table-header">
+                    <div>Category</div>
+                    <div>Estimated</div>
+                    <div>Actual</div>
+                    <div>Difference</div>
+                    <div>Actions</div>
+                </div>
+                ${trip.categories.map(cat => {
+                    const estimated = parseFloat(cat.estimated.replace(/[^\d.]/g, '')) || 0;
+                    const actual = parseFloat(cat.actual.replace(/[^\d.]/g, '')) || 0;
+                    const diff = estimated - actual;
+                    const diffClass = diff >= 0 ? 'positive' : 'negative';
+                    
+                    return `
+                        <div class="table-row">
+                            <div class="category-name">${cat.name}</div>
+                            <div class="category-amount">${cat.estimated}</div>
+                            <div class="category-amount">${cat.actual || '0.00/-'}</div>
+                            <div class="difference ${diffClass}">${diff >= 0 ? '+' : ''}${diff.toFixed(2)}/-</div>
+                            <div class="category-actions">
+                                <button class="edit-category-btn" onclick="openCategoryModal(${cat.id})" title="Edit">✏️</button>
+                                <button class="delete-category-btn" onclick="deleteCategory(${cat.id})" title="Delete">✕</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            `;
+        }
+
+        function renderTripTotals(trip) {
+            const totals = calculateTripTotals(trip);
+            
+            document.getElementById('tripTotals').innerHTML = `
+                <div class="totals-grid">
+                    <div class="total-item">
+                        <div class="total-label">Total Estimated Budget</div>
+                        <div class="total-value">${totals.estimated.toFixed(2)}/-</div>
+                    </div>
+                    <div class="total-item">
+                        <div class="total-label">Total Actual Expense</div>
+                        <div class="total-value">${totals.actual.toFixed(2)}/-</div>
+                    </div>
+                    <div class="total-item">
+                        <div class="total-label">Final ${totals.savings >= 0 ? 'Savings' : 'Debt'}</div>
+                        <div class="total-value">${Math.abs(totals.savings).toFixed(2)}/-</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Category Functions
+        function openCategoryModal(categoryId = null) {
+            editingCategoryId = categoryId;
+            
+            if (categoryId) {
+                const trip = trips.find(t => t.id === currentTripId);
+                const category = trip.categories.find(c => c.id === categoryId);
+                
+                if (category) {
+                    document.getElementById('categoryModalTitle').textContent = 'Edit Category';
+                    document.getElementById('categorySubmitBtn').textContent = 'Save Changes';
+                    document.getElementById('categoryId').value = category.id;
+                    document.getElementById('categoryName').value = category.name;
+                    document.getElementById('estimatedAmount').value = category.estimated;
+                    document.getElementById('actualAmount').value = category.actual;
+                }
+            } else {
+                document.getElementById('categoryModalTitle').textContent = 'Add Category';
+                document.getElementById('categorySubmitBtn').textContent = 'Add Category';
+                document.getElementById('categoryForm').reset();
+            }
+            
+            document.getElementById('categoryModal').classList.add('active');
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('active');
+            document.getElementById('categoryForm').reset();
+            editingCategoryId = null;
+        }
+
+        function saveCategory(event) {
+            event.preventDefault();
+            
+            const trip = trips.find(t => t.id === currentTripId);
+            if (!trip.categories) trip.categories = [];
+            
+            const categoryData = {
+                id: editingCategoryId || Date.now(),
+                name: document.getElementById('categoryName').value,
+                estimated: document.getElementById('estimatedAmount').value,
+                actual: document.getElementById('actualAmount').value || '/-0.00'
+            };
+            
+            if (editingCategoryId) {
+                const index = trip.categories.findIndex(c => c.id === editingCategoryId);
+                trip.categories[index] = categoryData;
+            } else {
+                trip.categories.push(categoryData);
+            }
+            
+            localStorage.setItem('trips', JSON.stringify(trips));
+            localStorage.setItem('trips_backup', JSON.stringify(trips));
+            
+            closeCategoryModal();
+            showTripDetails(currentTripId);
+            showToast(editingCategoryId ? 'Category updated!' : 'Category added!');
+        }
+
+        function deleteCategory(categoryId) {
+            const trip = trips.find(t => t.id === currentTripId);
+            trip.categories = trip.categories.filter(c => c.id !== categoryId);
+            
+            localStorage.setItem('trips', JSON.stringify(trips));
+            localStorage.setItem('trips_backup', JSON.stringify(trips));
+            
+            showTripDetails(currentTripId);
+            showToast('Category deleted!');
+        }
+
+        // SERVICE WORKER DISABLED - Causes cache issues with localStorage
+        // Will be re-implemented properly later with separate sw.js file
+        /*
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swCode = `
+                    const CACHE_NAME = 'wishlist-v1';
+                    self.addEventListener('install', (e) => {
+                        e.waitUntil(
+                            caches.open(CACHE_NAME).then((cache) => {
+                                return cache.addAll(['./', './index.html']);
+                            })
+                        );
+                    });
+                    self.addEventListener('fetch', (e) => {
+                        e.respondWith(
+                            caches.match(e.request).then((response) => {
+                                return response || fetch(e.request);
+                            })
+                        );
+                    });
+                `;
+                
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                
+                navigator.serviceWorker.register(swUrl)
+                    .catch(() => {
+                        // Silent fail for service worker registration
+                    });
+            });
+        }
+        */
     </script>
 </body>
 </html>

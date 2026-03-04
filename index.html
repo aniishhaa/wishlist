@@ -2591,7 +2591,7 @@
         // ==================== TRIP DETAILS ====================
 
         function showTripDetails(tripId) {
-            currentTripId = tripId;
+            currentTripId = Number(tripId);
             const trip = trips.find(t => t.id === tripId);
             if (!trip) return;
             document.getElementById('tripsPage').style.display = 'none';
@@ -2697,7 +2697,7 @@
         // ==================== CATEGORY CRUD ====================
 
         function openCategoryModal(categoryId = null) {
-            editingCategoryId = categoryId;
+            editingCategoryId = categoryId ? Number(categoryId) : null;
             if (categoryId) {
                 const trip = trips.find(t => t.id === currentTripId);
                 const category = trip.categories.find(c => c.id === categoryId);
@@ -2723,25 +2723,27 @@
             editingCategoryId = null;
         }
 
-        // FIX 2: saveCategory — removed duplicate `const trip` declaration
         function saveCategory(event) {
             event.preventDefault();
 
-            const trip = trips.find(t => t.id === currentTripId);
-            if (!trip.categories) trip.categories = [];
+            const isEditing = !!editingCategoryId;
+            const tripIndex = trips.findIndex(t => t.id === currentTripId);
+            if (tripIndex === -1) { showToast('Trip not found'); return; }
+
+            if (!trips[tripIndex].categories) trips[tripIndex].categories = [];
 
             const categoryData = {
-                id: editingCategoryId || Date.now(),
+                id: isEditing ? editingCategoryId : Date.now(),
                 name: document.getElementById('categoryName').value,
                 estimated: document.getElementById('estimatedAmount').value,
                 actual: document.getElementById('actualAmount').value || '/-0.00'
             };
 
-            if (editingCategoryId) {
-                const index = trip.categories.findIndex(c => c.id === editingCategoryId);
-                trip.categories[index] = categoryData;
+            if (isEditing) {
+                const catIndex = trips[tripIndex].categories.findIndex(c => c.id === editingCategoryId);
+                if (catIndex !== -1) trips[tripIndex].categories[catIndex] = categoryData;
             } else {
-                trip.categories.push(categoryData);
+                trips[tripIndex].categories.push(categoryData);
             }
 
             localStorage.setItem('trips', JSON.stringify(trips));
@@ -2749,29 +2751,27 @@
 
             closeCategoryModal();
 
-            // Re-fetch trip reference after modal close (editingCategoryId is now null)
-            const updatedTrip = trips.find(t => t.id === currentTripId);
-            renderTripSummary(updatedTrip);
-            renderCategories(updatedTrip);
-            renderTripTotals(updatedTrip);
+            renderTripSummary(trips[tripIndex]);
+            renderCategories(trips[tripIndex]);
+            renderTripTotals(trips[tripIndex]);
 
-            showToast(editingCategoryId !== null ? 'Category updated!' : 'Category added!');
+            showToast(isEditing ? 'Category updated!' : 'Category added!');
         }
 
-        // FIX 4: deleteCategory — actually removes the category from the array
         function deleteCategory(categoryId) {
-            const trip = trips.find(t => t.id === currentTripId);
-            if (!trip) { showToast('Trip not found'); return; }
-            if (!trip.categories) { trip.categories = []; return; }
+            const tripIndex = trips.findIndex(t => t.id === currentTripId);
+            if (tripIndex === -1) { showToast('Trip not found'); return; }
+            if (!trips[tripIndex].categories) { trips[tripIndex].categories = []; return; }
 
-            trip.categories = trip.categories.filter(c => c.id !== categoryId);
+            // coerce both sides to string for safe comparison (ids from onclick attributes are numbers, but be safe)
+            trips[tripIndex].categories = trips[tripIndex].categories.filter(c => String(c.id) !== String(categoryId));
 
             localStorage.setItem('trips', JSON.stringify(trips));
             localStorage.setItem('trips_backup', JSON.stringify(trips));
 
-            renderTripSummary(trip);
-            renderCategories(trip);
-            renderTripTotals(trip);
+            renderTripSummary(trips[tripIndex]);
+            renderCategories(trips[tripIndex]);
+            renderTripTotals(trips[tripIndex]);
 
             showToast('Category deleted!');
         }

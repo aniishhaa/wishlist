@@ -1849,12 +1849,12 @@
                 <h2 class="modal-title" id="categoryModalTitle">Add Category</h2>
                 <button class="close-btn" onclick="closeCategoryModal()">&times;</button>
             </div>
-            <form id="categoryForm" onsubmit="saveCategory(event)">
+            <div id="categoryForm">
                 <input type="hidden" id="categoryId">
 
                 <div class="form-group">
                     <label for="categoryName">Category Name</label>
-                    <select id="categoryName" required>
+                    <select id="categoryName">
                         <option value="">Select a category</option>
                         <option value="Food">Food</option>
                         <option value="Stay">Stay</option>
@@ -1868,7 +1868,7 @@
 
                 <div class="form-group">
                     <label for="estimatedAmount">Estimated Budget</label>
-                    <input type="text" id="estimatedAmount" required placeholder="/-0.00" oninput="formatTripPrice(this)">
+                    <input type="text" id="estimatedAmount" placeholder="/-0.00" oninput="formatTripPrice(this)">
                 </div>
 
                 <div class="form-group">
@@ -1877,10 +1877,10 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="submit-btn" id="categorySubmitBtn">Add Category</button>
+                    <button type="button" class="submit-btn" id="categorySubmitBtn" onclick="saveCategory()">Add Category</button>
                     <button type="button" class="cancel-btn" onclick="closeCategoryModal()">Cancel</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 
@@ -2698,9 +2698,9 @@
 
         function openCategoryModal(categoryId = null) {
             editingCategoryId = categoryId ? Number(categoryId) : null;
-            if (categoryId) {
+            if (editingCategoryId) {
                 const trip = trips.find(t => t.id === currentTripId);
-                const category = trip.categories.find(c => c.id === categoryId);
+                const category = trip && trip.categories.find(c => c.id === editingCategoryId);
                 if (category) {
                     document.getElementById('categoryModalTitle').textContent = 'Edit Category';
                     document.getElementById('categorySubmitBtn').textContent = 'Save Changes';
@@ -2712,19 +2712,30 @@
             } else {
                 document.getElementById('categoryModalTitle').textContent = 'Add Category';
                 document.getElementById('categorySubmitBtn').textContent = 'Add Category';
-                document.getElementById('categoryForm').reset();
+                document.getElementById('categoryName').value = '';
+                document.getElementById('estimatedAmount').value = '';
+                document.getElementById('actualAmount').value = '';
+                document.getElementById('categoryId').value = '';
             }
             document.getElementById('categoryModal').classList.add('active');
         }
 
         function closeCategoryModal() {
             document.getElementById('categoryModal').classList.remove('active');
-            document.getElementById('categoryForm').reset();
+            // Manually reset fields (no longer a form element)
+            document.getElementById('categoryName').value = '';
+            document.getElementById('estimatedAmount').value = '';
+            document.getElementById('actualAmount').value = '';
+            document.getElementById('categoryId').value = '';
             editingCategoryId = null;
         }
 
-        function saveCategory(event) {
-            event.preventDefault();
+        function saveCategory() {
+            // Manual validation
+            const nameVal = document.getElementById('categoryName').value;
+            const estVal = document.getElementById('estimatedAmount').value;
+            if (!nameVal) { showToast('Please select a category name'); return; }
+            if (!estVal) { showToast('Please enter an estimated budget'); return; }
 
             const isEditing = !!editingCategoryId;
             const tripIndex = trips.findIndex(t => t.id === currentTripId);
@@ -2734,28 +2745,37 @@
 
             const categoryData = {
                 id: isEditing ? editingCategoryId : Date.now(),
-                name: document.getElementById('categoryName').value,
-                estimated: document.getElementById('estimatedAmount').value,
+                name: nameVal,
+                estimated: estVal,
                 actual: document.getElementById('actualAmount').value || '/-0.00'
             };
 
             if (isEditing) {
                 const catIndex = trips[tripIndex].categories.findIndex(c => c.id === editingCategoryId);
-                if (catIndex !== -1) trips[tripIndex].categories[catIndex] = categoryData;
+                if (catIndex !== -1) {
+                    trips[tripIndex].categories[catIndex] = categoryData;
+                }
             } else {
                 trips[tripIndex].categories.push(categoryData);
             }
 
+            // Save to localStorage
             localStorage.setItem('trips', JSON.stringify(trips));
             localStorage.setItem('trips_backup', JSON.stringify(trips));
 
+            // Re-read from localStorage to guarantee fresh data
+            trips = JSON.parse(localStorage.getItem('trips'));
+
+            const toastMsg = isEditing ? 'Category updated!' : 'Category added!';
             closeCategoryModal();
 
-            renderTripSummary(trips[tripIndex]);
-            renderCategories(trips[tripIndex]);
-            renderTripTotals(trips[tripIndex]);
+            // Re-find index after re-read
+            const freshIndex = trips.findIndex(t => t.id === currentTripId);
+            renderTripSummary(trips[freshIndex]);
+            renderCategories(trips[freshIndex]);
+            renderTripTotals(trips[freshIndex]);
 
-            showToast(isEditing ? 'Category updated!' : 'Category added!');
+            showToast(toastMsg);
         }
 
         function deleteCategory(categoryId) {
@@ -2763,15 +2783,22 @@
             if (tripIndex === -1) { showToast('Trip not found'); return; }
             if (!trips[tripIndex].categories) { trips[tripIndex].categories = []; return; }
 
-            // coerce both sides to string for safe comparison (ids from onclick attributes are numbers, but be safe)
-            trips[tripIndex].categories = trips[tripIndex].categories.filter(c => String(c.id) !== String(categoryId));
+            trips[tripIndex].categories = trips[tripIndex].categories.filter(
+                c => String(c.id) !== String(categoryId)
+            );
 
+            // Save to localStorage
             localStorage.setItem('trips', JSON.stringify(trips));
             localStorage.setItem('trips_backup', JSON.stringify(trips));
 
-            renderTripSummary(trips[tripIndex]);
-            renderCategories(trips[tripIndex]);
-            renderTripTotals(trips[tripIndex]);
+            // Re-read from localStorage to guarantee fresh data
+            trips = JSON.parse(localStorage.getItem('trips'));
+
+            // Re-find index after re-read
+            const freshIndex = trips.findIndex(t => t.id === currentTripId);
+            renderTripSummary(trips[freshIndex]);
+            renderCategories(trips[freshIndex]);
+            renderTripTotals(trips[freshIndex]);
 
             showToast('Category deleted!');
         }

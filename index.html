@@ -2731,18 +2731,39 @@
         }
 
         function handleTripImageUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
+                const file = event.target.files[0];
+                if (!file) return;
+            
+                const img = new Image();
                 const reader = new FileReader();
+            
                 reader.onload = function(e) {
-                    currentTripImageData = e.target.result;
-                    const preview = document.getElementById('tripImagePreview');
-                    preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
-                    document.getElementById('tripImageUrl').value = '';
+                    img.src = e.target.result;
                 };
-                reader.readAsDataURL(file);
-            }
-        }
+            
+                img.onload = function() {
+                    const canvas = document.createElement("canvas");
+                    const maxWidth = 900;
+            
+                    const scale = maxWidth / img.width;
+                    canvas.width = maxWidth;
+                    canvas.height = img.height * scale;
+            
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            
+                    const compressed = canvas.toDataURL("image/jpeg", 0.7);
+            
+                    currentTripImageData = compressed;
+            
+                    document.getElementById("tripImagePreview").innerHTML =
+                        `<img src="${compressed}" alt="Preview">`;
+            
+                    document.getElementById("tripImageUrl").value = "";
+    };
+
+    reader.readAsDataURL(file);
+}
 
         function handleTripImageURL(url) {
             if (url) {

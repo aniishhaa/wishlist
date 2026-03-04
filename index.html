@@ -1392,7 +1392,7 @@
 
         .table-header, .table-row {
             display: grid;
-            grid-template-columns: 2fr 1.5fr 1.5fr 1.5fr 80px;
+            grid-template-columns: 2fr 1.5fr 1.5fr 1.5fr 100px;
             gap: 20px;
             padding: 20px 25px;
             align-items: center;
@@ -1804,6 +1804,28 @@
             .wishlist-item {
                 -webkit-tap-highlight-color: rgba(61, 40, 23, 0.1);
             }
+        }
+        @media (max-width: 768px) {
+
+            .categories-table {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .categories-table::-webkit-scrollbar {
+                height: 6px;
+            }
+            
+            .categories-table::-webkit-scrollbar-thumb {
+                background: var(--sage);
+                border-radius: 10px;
+            }
+        
+            .table-header,
+            .table-row {
+                min-width: 600px; /* keeps full layout */
+            }
+            
+        
         }
 
         /* Prevent zoom on input focus for iOS */
@@ -3085,7 +3107,15 @@
 
         function deleteCategory(categoryId) {
             const trip = trips.find(t => t.id === currentTripId);
-            trip.categories = trip.categories.filter(c => c.id !== categoryId);
+
+            if (!trip) {
+                showToast("Trip not found");
+                return;
+            }
+            
+            if (!trip.categories) {
+                trip.categories = [];
+            }
             
             localStorage.setItem('trips', JSON.stringify(trips));
             localStorage.setItem('trips_backup', JSON.stringify(trips));

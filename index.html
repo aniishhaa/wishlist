@@ -2020,7 +2020,6 @@
                 '<span class="image-preview-text">Image preview will appear here</span>';
         }
 
-        // FIX 3: formatPrice — preserve cursor by only updating when value actually changes
         function formatPrice(input) {
             let raw = input.value.replace(/[^\d.]/g, '');
             let formatted = raw ? `/-${raw}` : '';
@@ -2368,7 +2367,6 @@
 
         // ==================== TRIPS PAGE ====================
 
-        // FIX 1: showTripsPage no longer immediately calls showWishlistPage()
         function showTripsPage(event) {
             event.preventDefault();
             document.querySelector('.hero').style.display = 'none';
@@ -2591,8 +2589,9 @@
         // ==================== TRIP DETAILS ====================
 
         function showTripDetails(tripId) {
+            // FIX: always coerce to Number for consistent comparison
             currentTripId = Number(tripId);
-            const trip = trips.find(t => t.id === tripId);
+            const trip = trips.find(t => t.id === currentTripId);
             if (!trip) return;
             document.getElementById('tripsPage').style.display = 'none';
             document.getElementById('tripDetailsPage').style.display = 'block';
@@ -2694,10 +2693,24 @@
             `;
         }
 
+        // ==================== HELPER: refresh trip details view ====================
+
+        function refreshTripDetails() {
+            // Re-read fresh data from localStorage every time
+            trips = JSON.parse(localStorage.getItem('trips')) || [];
+            const trip = trips.find(t => t.id === currentTripId);
+            if (!trip) return;
+            renderTripSummary(trip);
+            renderCategories(trip);
+            renderTripTotals(trip);
+        }
+
         // ==================== CATEGORY CRUD ====================
 
-        function openCategoryModal(categoryId = null) {
-            editingCategoryId = categoryId ? Number(categoryId) : null;
+        function openCategoryModal(categoryId) {
+            // FIX: coerce to Number if provided, null otherwise
+            editingCategoryId = (categoryId !== undefined && categoryId !== null) ? Number(categoryId) : null;
+
             if (editingCategoryId) {
                 const trip = trips.find(t => t.id === currentTripId);
                 const category = trip && trip.categories.find(c => c.id === editingCategoryId);
@@ -2722,7 +2735,6 @@
 
         function closeCategoryModal() {
             document.getElementById('categoryModal').classList.remove('active');
-            // Manually reset fields (no longer a form element)
             document.getElementById('categoryName').value = '';
             document.getElementById('estimatedAmount').value = '';
             document.getElementById('actualAmount').value = '';
@@ -2731,13 +2743,15 @@
         }
 
         function saveCategory() {
-            // Manual validation
             const nameVal = document.getElementById('categoryName').value;
             const estVal = document.getElementById('estimatedAmount').value;
+
             if (!nameVal) { showToast('Please select a category name'); return; }
             if (!estVal) { showToast('Please enter an estimated budget'); return; }
 
             const isEditing = !!editingCategoryId;
+
+            // FIX: work directly on the trips array in memory (already up to date)
             const tripIndex = trips.findIndex(t => t.id === currentTripId);
             if (tripIndex === -1) { showToast('Trip not found'); return; }
 
@@ -2763,44 +2777,36 @@
             localStorage.setItem('trips', JSON.stringify(trips));
             localStorage.setItem('trips_backup', JSON.stringify(trips));
 
-            // Re-read from localStorage to guarantee fresh data
-            trips = JSON.parse(localStorage.getItem('trips'));
-
             const toastMsg = isEditing ? 'Category updated!' : 'Category added!';
+
+            // FIX: close the modal FIRST, then refresh the view after a short delay
+            // This lets the browser paint the modal closing before doing DOM re-renders
             closeCategoryModal();
 
-            // Re-find index after re-read
-            const freshIndex = trips.findIndex(t => t.id === currentTripId);
-            renderTripSummary(trips[freshIndex]);
-            renderCategories(trips[freshIndex]);
-            renderTripTotals(trips[freshIndex]);
-
-            showToast(toastMsg);
+            setTimeout(() => {
+                refreshTripDetails();
+                showToast(toastMsg);
+            }, 50);
         }
 
         function deleteCategory(categoryId) {
+            // FIX: coerce to Number for consistent comparison
+            const catId = Number(categoryId);
             const tripIndex = trips.findIndex(t => t.id === currentTripId);
             if (tripIndex === -1) { showToast('Trip not found'); return; }
-            if (!trips[tripIndex].categories) { trips[tripIndex].categories = []; return; }
+            if (!trips[tripIndex].categories) return;
 
-            trips[tripIndex].categories = trips[tripIndex].categories.filter(
-                c => String(c.id) !== String(categoryId)
-            );
+            trips[tripIndex].categories = trips[tripIndex].categories.filter(c => c.id !== catId);
 
             // Save to localStorage
             localStorage.setItem('trips', JSON.stringify(trips));
             localStorage.setItem('trips_backup', JSON.stringify(trips));
 
-            // Re-read from localStorage to guarantee fresh data
-            trips = JSON.parse(localStorage.getItem('trips'));
-
-            // Re-find index after re-read
-            const freshIndex = trips.findIndex(t => t.id === currentTripId);
-            renderTripSummary(trips[freshIndex]);
-            renderCategories(trips[freshIndex]);
-            renderTripTotals(trips[freshIndex]);
-
-            showToast('Category deleted!');
+            // FIX: defer DOM refresh so the click event fully resolves first
+            setTimeout(() => {
+                refreshTripDetails();
+                showToast('Category deleted!');
+            }, 50);
         }
     </script>
 </body>

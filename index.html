@@ -1404,29 +1404,27 @@
 
             const reader = new FileReader();
             reader.onload = function(e) {
+                // Reset AFTER read completes — resetting before cancels the read on some browsers
+                event.target.value = '';
                 try {
                     const importedData = JSON.parse(e.target.result);
                     if (!Array.isArray(importedData)) {
                         showToast('Invalid wishlist file format ✗');
                         return;
                     }
-                    // Store data and update the confirm modal text
                     window.tempImportData = importedData;
                     document.getElementById('importConfirmText').textContent =
                         `This will replace your current wishlist with ${importedData.length} imported items. Your current items will be lost.`;
-                    // FIX: show the static modal — no dynamic DOM injection needed
                     document.getElementById('importConfirmModal').classList.add('active');
                 } catch (err) {
                     showToast('Error reading file — make sure it\'s a valid JSON wishlist ✗');
                 }
             };
             reader.onerror = function() {
+                event.target.value = '';
                 showToast('Error reading file ✗');
             };
             reader.readAsText(file);
-
-            // Reset input so the same file can be picked again next time
-            event.target.value = '';
         }
 
         function confirmImport() {

@@ -989,15 +989,17 @@
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
-    <div class="delete-modal" id="deleteModal">
-        <div class="delete-modal-content">
-            <div class="delete-icon">🗑️</div>
-            <h3 class="delete-modal-title">Remove Item?</h3>
-            <p class="delete-modal-text">Are you sure you want to remove this item from your wishlist? This action cannot be undone.</p>
+    <!-- (item delete handled by #confirmDialog) -->
+
+    <!-- ── Reusable Confirm Dialog (replaces all dynamic createElement modals) ── -->
+    <div class="delete-modal" id="confirmDialog" style="z-index:1100;">
+        <div class="delete-modal-content" id="confirmDialogContent">
+            <div class="delete-icon" id="confirmDialogIcon">⚠️</div>
+            <h3 class="delete-modal-title" id="confirmDialogTitle">Are you sure?</h3>
+            <p class="delete-modal-text" id="confirmDialogText"></p>
             <div class="delete-modal-actions">
-                <button class="cancel-delete-btn" onclick="closeDeleteModal()">Keep It</button>
-                <button class="confirm-delete-btn" onclick="confirmDelete()">Yes, Remove</button>
+                <button class="cancel-delete-btn"  id="confirmDialogCancel"  onclick="closeConfirmDialog()">Cancel</button>
+                <button class="confirm-delete-btn" id="confirmDialogConfirm" onclick="handleConfirmDialog()">Confirm</button>
             </div>
         </div>
     </div>
@@ -1089,7 +1091,7 @@
 
     <script>
     // ─────────────────────────────────────────────
-    // STATE  (read from localStorage with backup)
+    // STATE
     // ─────────────────────────────────────────────
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) ||
                    JSON.parse(localStorage.getItem('wishlist_backup')) || [];
@@ -1097,17 +1099,55 @@
     let trips = JSON.parse(localStorage.getItem('trips')) ||
                 JSON.parse(localStorage.getItem('trips_backup')) || [];
 
-    let currentTags       = [];
-    let editingItemId     = null;
-    let currentFilter     = 'all';
-    let currentImageData  = null;
-    let itemToDelete      = null;
+    let currentTags          = [];
+    let editingItemId        = null;
+    let currentFilter        = 'all';
+    let currentImageData     = null;
+    let itemToDelete         = null;
 
-    let editingTripId       = null;
+    let editingTripId        = null;
     let currentTripImageData = null;
-    let tripToDelete        = null;
-    let currentTripId       = null;
-    let editingCategoryId   = null;
+    let tripToDelete         = null;
+    let currentTripId        = null;
+    let editingCategoryId    = null;
+
+    // ─────────────────────────────────────────────
+    // REUSABLE CONFIRM DIALOG
+    // All yes/no confirmations go through this one
+    // persistent element — no createElement needed.
+    // ─────────────────────────────────────────────
+    let _confirmCallback = null;
+
+    function showConfirmDialog({ icon = '⚠️', title, text, confirmLabel = 'Confirm', cancelLabel = 'Cancel', onConfirm }) {
+        document.getElementById('confirmDialogIcon').textContent    = icon;
+        document.getElementById('confirmDialogTitle').textContent   = title;
+        document.getElementById('confirmDialogText').textContent    = text;
+        document.getElementById('confirmDialogConfirm').textContent = confirmLabel;
+        document.getElementById('confirmDialogCancel').textContent  = cancelLabel;
+        _confirmCallback = onConfirm;
+        document.getElementById('confirmDialog').classList.add('active');
+    }
+
+    function closeConfirmDialog() {
+        document.getElementById('confirmDialog').classList.remove('active');
+        _confirmCallback = null;
+    }
+
+    function handleConfirmDialog() {
+        // Capture callback BEFORE closeConfirmDialog() nulls it
+        const cb = _confirmCallback;
+        closeConfirmDialog();
+        if (typeof cb === 'function') cb();
+    }
+
+    // Close only when the dark backdrop itself is clicked
+    document.getElementById('confirmDialog').addEventListener('click', function(e) {
+        if (e.target === this) closeConfirmDialog();
+    });
+    // Stop clicks inside the white card bubbling up to the backdrop listener
+    document.getElementById('confirmDialogContent').addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
 
     // Kick off first render
     renderWishlist();
@@ -1307,25 +1347,25 @@
     }
 
     function deleteItem(id) {
-        itemToDelete = id;
-        document.getElementById('deleteModal').classList.add('active');
+        showConfirmDialog({
+            icon:         '🗑️',
+            title:        'Remove Item?',
+            text:         'Are you sure you want to remove this item from your wishlist? This action cannot be undone.',
+            confirmLabel: 'Yes, Remove',
+            cancelLabel:  'Keep It',
+            onConfirm() {
+                wishlist = wishlist.filter(item => item.id !== id);
+                saveWishlist();
+                renderWishlist();
+                updateCategoryFilters();
+                showToast('Item removed successfully!');
+            }
+        });
     }
 
-    function closeDeleteModal() {
-        document.getElementById('deleteModal').classList.remove('active');
-        itemToDelete = null;
-    }
-
-    function confirmDelete() {
-        if (itemToDelete == null) return;
-        wishlist = wishlist.filter(item => item.id !== itemToDelete);
-        saveWishlist();
-        closeDeleteModal();
-        renderWishlist();
-        updateCategoryFilters();
-        showToast('Item removed successfully!');
-        itemToDelete = null;
-    }
+    // kept for any legacy references
+    function closeDeleteModal() { closeConfirmDialog(); }
+    function confirmDelete()    { handleConfirmDialog(); }
 
     function saveWishlist() {
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
@@ -1451,42 +1491,24 @@
             try {
                 const data = JSON.parse(e.target.result);
                 if (!Array.isArray(data)) { showToast('Invalid wishlist file format ✗'); return; }
-                window._importData = data;
-                const m = document.createElement('div');
-                m.className = 'delete-modal active';
-                m.id = 'importConfirmModal';
-                m.innerHTML = `
-                    <div class="delete-modal-content">
-                        <div class="delete-icon">⚠️</div>
-                        <h3 class="delete-modal-title">Replace Wishlist?</h3>
-                        <p class="delete-modal-text">This will replace your current wishlist with ${data.length} imported items.</p>
-                        <div class="delete-modal-actions">
-                            <button class="cancel-delete-btn"  onclick="closeImportModal()">Cancel</button>
-                            <button class="confirm-delete-btn" onclick="confirmImport()">Yes, Replace</button>
-                        </div>
-                    </div>`;
-                document.body.appendChild(m);
-                m.addEventListener('click', ev => { if (ev.target === m) closeImportModal(); });
+                showConfirmDialog({
+                    icon:         '⚠️',
+                    title:        'Replace Wishlist?',
+                    text:         `This will replace your current wishlist with ${data.length} imported items. Your current items will be lost.`,
+                    confirmLabel: 'Yes, Replace',
+                    cancelLabel:  'Cancel',
+                    onConfirm() {
+                        wishlist = data;
+                        saveWishlist();
+                        renderWishlist();
+                        updateCategoryFilters();
+                        showToast('Wishlist imported successfully! ✓');
+                    }
+                });
             } catch { showToast('Error importing wishlist ✗'); }
         };
         reader.readAsText(file);
         event.target.value = '';
-    }
-
-    function confirmImport() {
-        if (!window._importData) return;
-        wishlist = window._importData;
-        saveWishlist();
-        renderWishlist();
-        updateCategoryFilters();
-        showToast('Wishlist imported successfully! ✓');
-        closeImportModal();
-    }
-
-    function closeImportModal() {
-        const m = document.getElementById('importConfirmModal');
-        if (m) m.remove();
-        delete window._importData;
     }
 
     function scrollToWishlist() {
@@ -1497,10 +1519,19 @@
     // MODAL OUTSIDE-CLICK HANDLERS
     // FIX: added missing handlers for tripModal and categoryModal
     // ─────────────────────────────────────────────
-    document.getElementById('addModal').addEventListener('click',      e => { if (e.target === document.getElementById('addModal'))      closeModal(); });
-    document.getElementById('deleteModal').addEventListener('click',   e => { if (e.target === document.getElementById('deleteModal'))   closeDeleteModal(); });
-    document.getElementById('tripModal').addEventListener('click',     e => { if (e.target === document.getElementById('tripModal'))     closeTripModal(); });
-    document.getElementById('categoryModal').addEventListener('click', e => { if (e.target === document.getElementById('categoryModal')) closeCategoryModal(); });
+    // Backdrop clicks close the modal; clicks inside the card do NOT bubble up
+    ['addModal','tripModal','categoryModal'].forEach(id => {
+        const modal = document.getElementById(id);
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                if (id === 'addModal')      closeModal();
+                if (id === 'tripModal')     closeTripModal();
+                if (id === 'categoryModal') closeCategoryModal();
+            }
+        });
+        // Stop the inner content card from triggering the backdrop handler
+        modal.querySelector('.modal-content').addEventListener('click', e => e.stopPropagation());
+    });
 
     // FIX: Enter in tag input should NOT submit the form
     document.getElementById('itemCategory').addEventListener('keydown', e => {
@@ -1716,38 +1747,20 @@
     }
 
     function deleteTrip(id) {
-        tripToDelete = Number(id);
-        const m = document.createElement('div');
-        m.className = 'delete-modal active';
-        m.id = 'tripDeleteModal';
-        m.innerHTML = `
-            <div class="delete-modal-content">
-                <div class="delete-icon">🗑️</div>
-                <h3 class="delete-modal-title">Remove Trip?</h3>
-                <p class="delete-modal-text">Are you sure you want to remove this trip? This action cannot be undone.</p>
-                <div class="delete-modal-actions">
-                    <button class="cancel-delete-btn"  onclick="closeTripDeleteModal()">Keep It</button>
-                    <button class="confirm-delete-btn" onclick="confirmTripDelete()">Yes, Remove</button>
-                </div>
-            </div>`;
-        document.body.appendChild(m);
-        m.addEventListener('click', e => { if (e.target === m) closeTripDeleteModal(); });
-    }
-
-    function closeTripDeleteModal() {
-        const m = document.getElementById('tripDeleteModal');
-        if (m) m.remove();
-        tripToDelete = null;
-    }
-
-    function confirmTripDelete() {
-        if (tripToDelete == null) return;
-        trips = trips.filter(t => t.id !== tripToDelete);
-        saveTrips();
-        closeTripDeleteModal();
-        renderTrips();
-        showToast('Trip removed successfully!');
-        tripToDelete = null;
+        const tripId = Number(id);
+        showConfirmDialog({
+            icon:         '🗑️',
+            title:        'Remove Trip?',
+            text:         'Are you sure you want to remove this trip? This action cannot be undone.',
+            confirmLabel: 'Yes, Remove',
+            cancelLabel:  'Keep It',
+            onConfirm() {
+                trips = trips.filter(t => t.id !== tripId);
+                saveTrips();
+                renderTrips();
+                showToast('Trip removed successfully!');
+            }
+        });
     }
 
     function saveTrips() {

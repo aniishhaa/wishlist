@@ -1001,7 +1001,7 @@
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
         function showInstallBtns() {
-            if (isStandalone) return; // already installed
+            if (isStandalone) return;
             document.getElementById('installAppBtn').style.display = 'block';
             document.getElementById('installAppBtnMobile').style.display = 'block';
         }
@@ -1009,6 +1009,9 @@
             document.getElementById('installAppBtn').style.display = 'none';
             document.getElementById('installAppBtnMobile').style.display = 'none';
         }
+
+        // Always show the button (works as manual instructions fallback too)
+        showInstallBtns();
 
         window.addEventListener('beforeinstallprompt', e => {
             e.preventDefault();

@@ -361,19 +361,30 @@
 
         /* FIX: Import confirm modal — separate class so it doesn't inherit display:none issues */
         .confirm-overlay {
-            display: none;
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 1050; align-items: flex-start; justify-content: center;
+            padding: 40px 20px; overflow-y: auto;
+        }
+
+        /* Use pseudo-element for the backdrop so it never intercepts button clicks */
+        .confirm-overlay::before {
+            content: '';
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(61, 40, 23, 0.5);
             backdrop-filter: blur(8px);
-            z-index: 9999;   /* increase */
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            pointer-events: auto;
+            z-index: -1;
         }
 
         .confirm-overlay.active { display: flex; animation: fadeInModal 0.3s ease; }
+
+        /* Ensure modal content inside confirm-overlay sits above backdrop and is always clickable */
+        .confirm-overlay .delete-modal-content {
+            pointer-events: auto;
+            position: relative;
+            z-index: 1051;
+            margin: auto;
+        }
 
         .delete-modal {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -385,8 +396,6 @@
         .delete-modal.active { display: flex; animation: fadeInModal 0.3s ease; }
 
         .delete-modal-content {
-            position: relative;
-            z-index: 10000;
             background: white; border-radius: 20px; padding: 40px;
             max-width: 450px; width: 90%;
             box-shadow: 0 20px 60px rgba(61, 40, 23, 0.3);
@@ -1445,8 +1454,18 @@
         // Outside-click to close modals
         document.getElementById('addModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
         document.getElementById('deleteModal').addEventListener('click', function(e) { if (e.target === this) closeDeleteModal(); });
-        document.getElementById('importConfirmModal').addEventListener('click', function(e) { if (e.target === this) closeImportModal(); });
-        document.getElementById('tripDeleteModal').addEventListener('click', function(e) { if (e.target === this) closeTripDeleteModal(); });
+        document.getElementById('importConfirmModal').addEventListener('click', function(e) {
+            // Only close if clicking the backdrop itself, not any child element
+            if (e.target === this) closeImportModal();
+        });
+        document.getElementById('tripDeleteModal').addEventListener('click', function(e) {
+            if (e.target === this) closeTripDeleteModal();
+        });
+
+        // Extra safety: stop click events on modal content from bubbling to overlay
+        document.querySelectorAll('.confirm-overlay .delete-modal-content').forEach(el => {
+            el.addEventListener('click', function(e) { e.stopPropagation(); });
+        });
 
         document.getElementById('itemCategory').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') { e.preventDefault(); addTag(); }

@@ -1760,6 +1760,53 @@
             .savings-value {
                 font-size: 24px;
             }
+
+            /* Trip Details Mobile */
+            .trip-details-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .trip-summary-name {
+                font-size: 28px;
+            }
+
+            .trip-summary-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .table-header, .table-row {
+                grid-template-columns: 2fr 1fr 1fr 1fr 60px;
+                gap: 10px;
+                padding: 15px;
+                font-size: 13px;
+            }
+
+            .category-name {
+                font-size: 14px;
+            }
+
+            .category-amount {
+                font-size: 14px;
+            }
+
+            .difference {
+                font-size: 14px;
+            }
+
+            .edit-category-btn, .delete-category-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+
+            .totals-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .total-value {
+                font-size: 26px;
+            }
         }
 
         /* Extra small devices */
@@ -1792,6 +1839,34 @@
             .item-price {
                 font-size: 18px;
             }
+
+            /* Trip Details - Stack table vertically on very small screens */
+            .table-header {
+                display: none;
+            }
+
+            .table-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 20px 15px;
+                border-bottom: 2px solid var(--warm-gray);
+            }
+
+            .table-row > div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .table-row > div::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: var(--earth-dark);
+            }
+
+            .category-actions {
+                justify-content: center;
+            }
         }
 
         /* Improve touch targets for mobile */
@@ -1818,7 +1893,7 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">
+                <div class="logo" onclick="showWishlistPage()" style="cursor: pointer;">
                     <div class="logo-icon">✨</div>
                     <div class="logo-text">My Wishlist</div>
                 </div>
@@ -1850,6 +1925,7 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <nav>
+            <a href="#home" onclick="showWishlistPage(); closeMobileMenu()">Home</a>
             <a href="#explore" onclick="closeMobileMenu()">Explore</a>
             <a href="#about" onclick="closeMobileMenu()">About</a>
             <a href="#blog" onclick="closeMobileMenu()">Blog</a>
@@ -2968,11 +3044,11 @@
                     
                     return `
                         <div class="table-row">
-                            <div class="category-name">${cat.name}</div>
-                            <div class="category-amount">${cat.estimated}</div>
-                            <div class="category-amount">${cat.actual || '/-0.00'}</div>
-                            <div class="difference ${diffClass}">${diff >= 0 ? '+' : ''}/-${diff.toFixed(2)}</div>
-                            <div class="category-actions">
+                            <div class="category-name" data-label="Category">${cat.name}</div>
+                            <div class="category-amount" data-label="Estimated">${cat.estimated}</div>
+                            <div class="category-amount" data-label="Actual">${cat.actual || '/-0.00'}</div>
+                            <div class="difference ${diffClass}" data-label="Difference">${diff >= 0 ? '+' : ''}/-${diff.toFixed(2)}</div>
+                            <div class="category-actions" data-label="Actions">
                                 <button class="edit-category-btn" onclick="openCategoryModal(${cat.id})" title="Edit">✏️</button>
                                 <button class="delete-category-btn" onclick="deleteCategory(${cat.id})" title="Delete">✕</button>
                             </div>

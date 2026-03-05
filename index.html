@@ -232,6 +232,29 @@
         .trip-details-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; }
         .back-btn { background: var(--warm-gray); color: var(--earth-dark); padding: 12px 24px; border: none; border-radius: 8px; font-family: 'Work Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.3s ease; }
         .back-btn:hover { background: var(--sage); color: white; transform: translateX(-5px); }
+
+        /* Floating add button for mobile trip details */
+        .fab-add-category {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--terracotta), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 28px;
+            line-height: 1;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(184, 92, 56, 0.45);
+            z-index: 500;
+            transition: all 0.3s ease;
+            align-items: center;
+            justify-content: center;
+        }
+        .fab-add-category:hover { transform: scale(1.1) rotate(90deg); box-shadow: 0 8px 28px rgba(184,92,56,0.55); }
         .trip-summary-card { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px var(--shadow); margin-bottom: 40px; position: relative; overflow: hidden; min-height: 180px; }
         .trip-summary-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-size: cover; background-position: center; opacity: 0.15; }
         .trip-summary-content { position: relative; z-index: 2; }
@@ -345,6 +368,31 @@
             .categories-table::-webkit-scrollbar { height: 6px; }
             .categories-table::-webkit-scrollbar-thumb { background: var(--sage); border-radius: 10px; }
             .table-header, .table-row { min-width: 600px; }
+
+            /* Trip details header: back arrow + title on one line, no Add Category button */
+            .trip-details-header {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 12px;
+                margin-bottom: 24px;
+            }
+            .trip-details-header .section-title {
+                font-size: 24px;
+                flex: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .back-btn {
+                padding: 10px 14px;
+                font-size: 14px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            /* Hide desktop Add Category button, show FAB instead */
+            #addCategoryDesktopBtn { display: none; }
+            .fab-add-category { display: flex; }
         }
         @media (max-width: 480px) {
             .hero h1 { font-size: 38px; }
@@ -486,10 +534,13 @@
         <!-- Trip Details Page -->
         <section class="trip-details-page" id="tripDetailsPage" style="display:none;">
             <div class="trip-details-header">
-                <button class="back-btn" onclick="backToTrips()">← Back to Trips</button>
+                <button class="back-btn" onclick="backToTrips()">← Back</button>
                 <h2 class="section-title" id="tripDetailsTitle">Trip Details</h2>
-                <button class="primary-btn" onclick="openCategoryModal()">Add Category</button>
+                <button class="primary-btn" id="addCategoryDesktopBtn" onclick="openCategoryModal()">Add Category</button>
             </div>
+
+            <!-- Floating Add button (mobile only) -->
+            <button class="fab-add-category" id="fabAddCategory" onclick="openCategoryModal()">+</button>
 
             <!-- FIXED: inline category delete confirm banner -->
             <div class="inline-confirm" id="categoryDeleteBanner">
@@ -1244,6 +1295,7 @@
             if (!trip) return;
             document.getElementById('tripsPage').style.display = 'none';
             document.getElementById('tripDetailsPage').style.display = 'block';
+            document.getElementById('fabAddCategory').style.display = 'flex';
             document.getElementById('tripDetailsTitle').textContent = trip.name;
             renderTripSummary(trip);
             renderCategories(trip);
@@ -1254,6 +1306,7 @@
             localStorage.setItem('activePage', 'trips');
             localStorage.removeItem('activeTripId');
             document.getElementById('tripDetailsPage').style.display = 'none';
+            document.getElementById('fabAddCategory').style.display = 'none';
             document.getElementById('tripsPage').style.display = 'block';
         }
         function refreshTripDetails() {

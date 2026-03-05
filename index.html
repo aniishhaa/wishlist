@@ -977,69 +977,39 @@
 
         // ==================== PWA ====================
 
-        // 1. Register service worker inline via Blob URL (no separate sw.js file needed)
-        if ('serviceWorker' in navigator) {
-            const swCode = `
-                const CACHE = 'wishlist-v1';
-                self.addEventListener('install', () => self.skipWaiting());
-                self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
-                self.addEventListener('fetch', e => {
-                    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
-                });
-            `;
-            const swBlob = new Blob([swCode], { type: 'application/javascript' });
-            const swURL = URL.createObjectURL(swBlob);
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register(swURL)
-                    .then(() => console.log('SW registered'))
-                    .catch(err => console.warn('SW failed:', err));
-            });
-        }
-
-        // 2. Catch the install prompt before it fires
         let deferredPrompt = null;
-        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+        const installBtn = document.getElementById('installAppBtn');
+        const installBtnMobile = document.getElementById('installAppBtnMobile');
 
-        function showInstallBtns() {
-            if (isStandalone) return;
-            document.getElementById('installAppBtn').style.display = 'block';
-            document.getElementById('installAppBtnMobile').style.display = 'block';
-        }
-        function hideInstallBtns() {
-            document.getElementById('installAppBtn').style.display = 'none';
-            document.getElementById('installAppBtnMobile').style.display = 'none';
-        }
-
-        // Always show the button (works as manual instructions fallback too)
-        showInstallBtns();
-
+        // Only show install button when browser fires the real install prompt
         window.addEventListener('beforeinstallprompt', e => {
             e.preventDefault();
             deferredPrompt = e;
-            showInstallBtns();
+            if (installBtn) installBtn.style.display = 'block';
+            if (installBtnMobile) installBtnMobile.style.display = 'block';
         });
 
         async function installApp() {
             if (deferredPrompt) {
-                // Chrome / Edge / Samsung Browser — native prompt
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 deferredPrompt = null;
                 if (outcome === 'accepted') {
-                    showToast('App installing... 🎉');
-                    hideInstallBtns();
+                    showToast('Installing app... 🎉');
+                    if (installBtn) installBtn.style.display = 'none';
+                    if (installBtnMobile) installBtnMobile.style.display = 'none';
                 } else {
                     showToast('Installation cancelled');
                 }
             } else {
-                // iOS Safari or browser that doesn't support beforeinstallprompt
                 showInstallInstructions();
             }
         }
 
         window.addEventListener('appinstalled', () => {
             showToast('App installed successfully! 🎉');
-            hideInstallBtns();
+            if (installBtn) installBtn.style.display = 'none';
+            if (installBtnMobile) installBtnMobile.style.display = 'none';
             deferredPrompt = null;
         });
 

@@ -1489,8 +1489,13 @@
         const reader = new FileReader();
         reader.onload = e => {
             try {
-                const data = JSON.parse(e.target.result);
-                if (!Array.isArray(data)) { showToast('Invalid wishlist file format ✗'); return; }
+                const parsed = JSON.parse(e.target.result);
+                // Accept plain array OR { wishlist: [...] } wrapper
+                const data = Array.isArray(parsed)
+                    ? parsed
+                    : (parsed && Array.isArray(parsed.wishlist) ? parsed.wishlist : null);
+                if (!data) { showToast('Invalid wishlist file ✗ — expected a JSON array'); return; }
+                if (data.length === 0) { showToast('The file contains an empty wishlist ✗'); return; }
                 showConfirmDialog({
                     icon:         '⚠️',
                     title:        'Replace Wishlist?',
@@ -1502,10 +1507,10 @@
                         saveWishlist();
                         renderWishlist();
                         updateCategoryFilters();
-                        showToast('Wishlist imported successfully! ✓');
+                        showToast(`Imported ${data.length} items successfully! ✓`);
                     }
                 });
-            } catch { showToast('Error importing wishlist ✗'); }
+            } catch (err) { showToast('Could not read file ✗ — is it valid JSON?'); }
         };
         reader.readAsText(file);
         event.target.value = '';

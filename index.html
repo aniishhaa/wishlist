@@ -360,31 +360,13 @@
         @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
 
         /* FIX: Import confirm modal — separate class so it doesn't inherit display:none issues */
+        /* confirm-overlay reuses .modal styles — same proven pattern */
         .confirm-overlay {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 1050; align-items: flex-start; justify-content: center;
-            padding: 40px 20px; overflow-y: auto;
+            background: rgba(61, 40, 23, 0.5); backdrop-filter: blur(8px);
+            z-index: 1050; align-items: center; justify-content: center; padding: 20px;
         }
-
-        /* Use pseudo-element for the backdrop so it never intercepts button clicks */
-        .confirm-overlay::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(61, 40, 23, 0.5);
-            backdrop-filter: blur(8px);
-            z-index: -1;
-        }
-
         .confirm-overlay.active { display: flex; animation: fadeInModal 0.3s ease; }
-
-        /* Ensure modal content inside confirm-overlay sits above backdrop and is always clickable */
-        .confirm-overlay .delete-modal-content {
-            pointer-events: auto;
-            position: relative;
-            z-index: 1051;
-            margin: auto;
-        }
 
         .delete-modal {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -1006,7 +988,7 @@
     </div>
 
     <!-- Import Confirm Modal (static, always in DOM) -->
-    <div class="confirm-overlay" id="importConfirmModal">
+    <div class="modal" id="importConfirmModal">
         <div class="delete-modal-content">
             <div class="delete-icon">⚠️</div>
             <h3 class="delete-modal-title">Replace Wishlist?</h3>
@@ -1097,7 +1079,7 @@
     </div>
 
     <!-- Trip Delete Modal -->
-    <div class="confirm-overlay" id="tripDeleteModal">
+    <div class="modal" id="tripDeleteModal">
         <div class="delete-modal-content">
             <div class="delete-icon">🗑️</div>
             <h3 class="delete-modal-title">Remove Trip?</h3>
@@ -1428,21 +1410,22 @@
         }
 
         function confirmImport() {
-            if (window.tempImportData) {
-                wishlist = window.tempImportData;
-                localStorage.setItem('wishlist', JSON.stringify(wishlist));
-                localStorage.setItem('wishlist_backup', JSON.stringify(wishlist));
-                closeImportModal();
-                renderWishlist();
-                updateCategoryFilters();
-                showToast(`Imported ${wishlist.length} items successfully! ✓`);
-                delete window.tempImportData;
-            }
+            if (!window.tempImportData) return;
+            // Grab data before closing modal (closeImportModal deletes tempImportData)
+            const importedData = window.tempImportData;
+            document.getElementById('importConfirmModal').classList.remove('active');
+            window.tempImportData = null;
+            wishlist = importedData;
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            localStorage.setItem('wishlist_backup', JSON.stringify(wishlist));
+            renderWishlist();
+            updateCategoryFilters();
+            showToast(`Imported ${wishlist.length} items successfully! ✓`);
         }
 
         function closeImportModal() {
             document.getElementById('importConfirmModal').classList.remove('active');
-            delete window.tempImportData;
+            window.tempImportData = null;
         }
 
         function scrollToWishlist() {
@@ -1453,16 +1436,10 @@
         document.getElementById('addModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
         document.getElementById('deleteModal').addEventListener('click', function(e) { if (e.target === this) closeDeleteModal(); });
         document.getElementById('importConfirmModal').addEventListener('click', function(e) {
-            // Only close if clicking the backdrop itself, not any child element
             if (e.target === this) closeImportModal();
         });
         document.getElementById('tripDeleteModal').addEventListener('click', function(e) {
             if (e.target === this) closeTripDeleteModal();
-        });
-
-        // Extra safety: stop click events on modal content from bubbling to overlay
-        document.querySelectorAll('.confirm-overlay .delete-modal-content').forEach(el => {
-            el.addEventListener('click', function(e) { e.stopPropagation(); });
         });
 
         document.getElementById('itemCategory').addEventListener('keypress', function(e) {

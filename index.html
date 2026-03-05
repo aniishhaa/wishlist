@@ -2585,15 +2585,20 @@
 
         function confirmImport() {
             if (window.tempImportData) {
-                wishlist = window.tempImportData;
-                localStorage.setItem('wishlist', JSON.stringify(wishlist));
-                // SAFETY NET: Keep a backup copy
-                localStorage.setItem('wishlist_backup', JSON.stringify(wishlist));
-                renderWishlist();
-                updateCategoryFilters();
-                showToast('Wishlist imported successfully! ✓');
+                // Close modal first to prevent UI blocking
                 closeImportModal();
-                delete window.tempImportData;
+                
+                // Small delay to ensure modal is closed
+                setTimeout(() => {
+                    wishlist = window.tempImportData;
+                    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                    // SAFETY NET: Keep a backup copy
+                    localStorage.setItem('wishlist_backup', JSON.stringify(wishlist));
+                    renderWishlist();
+                    updateCategoryFilters();
+                    showToast('Wishlist imported successfully! ✓');
+                    delete window.tempImportData;
+                }, 100);
             }
         }
 

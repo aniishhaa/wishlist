@@ -372,8 +372,8 @@
                     <div class="logo-text">My Wishlist</div>
                 </div>
                 <nav>
-                    <a href="#" onclick="showWishlistPage()">Explore</a>
-                    <a href="#trip" onclick="showTripsPage(event)">Trip</a>
+                    <a href="#" onclick="showWishlistPage()" id="navWishlist">Wishlist</a>
+                    <a href="#trip" onclick="showTripsPage(event)" id="navTrip">Trip</a>
                     <a href="#blog">Blog</a>
                     <a href="#support">Support</a>
                     <button class="install-app-btn" id="installAppBtn" style="display:none;" onclick="installApp()">📱 Install App</button>
@@ -389,7 +389,7 @@
     <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
     <div class="mobile-menu" id="mobileMenu">
         <nav>
-            <a href="#" onclick="showWishlistPage(); closeMobileMenu()">Explore</a>
+            <a href="#" onclick="showWishlistPage(); closeMobileMenu()">Wishlist</a>
             <a href="#trip" onclick="showTripsPage(event); closeMobileMenu()">Trip</a>
             <a href="#blog" onclick="closeMobileMenu()">Blog</a>
             <a href="#support" onclick="closeMobileMenu()">Support</a>
@@ -667,9 +667,45 @@
         let categoryToDelete = null;
         let importPendingData = null;
 
-        // Boot
-        renderWishlist();
-        updateCategoryFilters();
+        // ==================== BOOT: restore last page ====================
+        function setActiveNav(page) {
+            document.getElementById('navWishlist').style.fontWeight = page === 'wishlist' ? '600' : '400';
+            document.getElementById('navTrip').style.fontWeight = page === 'trips' ? '600' : '400';
+            document.getElementById('navWishlist').style.color = page === 'wishlist' ? 'var(--accent)' : '';
+            document.getElementById('navTrip').style.color = page === 'trips' ? 'var(--accent)' : '';
+        }
+
+        const lastPage = localStorage.getItem('activePage') || 'wishlist';
+        const lastTripId = parseInt(localStorage.getItem('activeTripId')) || null;
+
+        if (lastPage === 'trips') {
+            document.querySelector('.hero').style.display = 'none';
+            document.querySelector('.wishlist-section').style.display = 'none';
+            document.getElementById('tripsPage').style.display = 'block';
+            renderTrips();
+            setActiveNav('trips');
+        } else if (lastPage === 'tripDetails' && lastTripId) {
+            document.querySelector('.hero').style.display = 'none';
+            document.querySelector('.wishlist-section').style.display = 'none';
+            document.getElementById('tripDetailsPage').style.display = 'block';
+            currentTripId = lastTripId;
+            const trip = trips.find(t => t.id === currentTripId);
+            if (trip) {
+                document.getElementById('tripDetailsTitle').textContent = trip.name;
+                renderTripSummary(trip);
+                renderCategories(trip);
+                renderTripTotals(trip);
+            } else {
+                document.getElementById('tripDetailsPage').style.display = 'none';
+                document.getElementById('tripsPage').style.display = 'block';
+                renderTrips();
+            }
+            setActiveNav('trips');
+        } else {
+            renderWishlist();
+            updateCategoryFilters();
+            setActiveNav('wishlist');
+        }
 
         // ==================== MOBILE MENU ====================
         function toggleMobileMenu() {
@@ -964,19 +1000,25 @@
         // ==================== PAGE SWITCHING ====================
         function showTripsPage(event) {
             event.preventDefault();
+            localStorage.setItem('activePage', 'trips');
+            localStorage.removeItem('activeTripId');
             document.querySelector('.hero').style.display = 'none';
             document.querySelector('.wishlist-section').style.display = 'none';
             document.getElementById('tripsPage').style.display = 'block';
             document.getElementById('tripDetailsPage').style.display = 'none';
             renderTrips();
+            setActiveNav('trips');
             closeMobileMenu();
         }
         function showWishlistPage() {
+            localStorage.setItem('activePage', 'wishlist');
+            localStorage.removeItem('activeTripId');
             document.querySelector('.hero').style.display = 'block';
             document.querySelector('.wishlist-section').style.display = 'block';
             document.getElementById('tripsPage').style.display = 'none';
             document.getElementById('tripDetailsPage').style.display = 'none';
             renderWishlist();
+            setActiveNav('wishlist');
         }
 
         // ==================== TRIPS CRUD ====================
@@ -1132,6 +1174,8 @@
         // ==================== TRIP DETAILS ====================
         function showTripDetails(tripId) {
             currentTripId = Number(tripId);
+            localStorage.setItem('activePage', 'tripDetails');
+            localStorage.setItem('activeTripId', currentTripId);
             const trip = trips.find(t => t.id === currentTripId);
             if (!trip) return;
             document.getElementById('tripsPage').style.display = 'none';
@@ -1143,6 +1187,8 @@
         }
         function backToTrips() {
             currentTripId = null;
+            localStorage.setItem('activePage', 'trips');
+            localStorage.removeItem('activeTripId');
             document.getElementById('tripDetailsPage').style.display = 'none';
             document.getElementById('tripsPage').style.display = 'block';
         }

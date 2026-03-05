@@ -2255,11 +2255,13 @@
                 wishlist = window.tempImportData;
                 localStorage.setItem('wishlist', JSON.stringify(wishlist));
                 localStorage.setItem('wishlist_backup', JSON.stringify(wishlist));
-                renderWishlist();
-                updateCategoryFilters();
-                showToast('Wishlist imported successfully! ✓');
-                closeImportModal();
                 delete window.tempImportData;
+                closeImportModal(); // close first
+                setTimeout(() => {
+                    renderWishlist();
+                    updateCategoryFilters();
+                    showToast('Wishlist imported successfully! ✓');
+                }, 50); // then re-render
             }
         }
 

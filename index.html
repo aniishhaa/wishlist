@@ -730,16 +730,22 @@
         const lastPage = localStorage.getItem('activePage') || 'wishlist';
         const lastTripId = parseInt(localStorage.getItem('activeTripId')) || null;
 
+        // Always hide FAB by default — only shown explicitly on trip details
+        document.getElementById('fabAddCategory').style.display = 'none';
+
         if (lastPage === 'trips') {
             document.querySelector('.hero').style.display = 'none';
             document.querySelector('.wishlist-section').style.display = 'none';
             document.getElementById('tripsPage').style.display = 'block';
+            document.getElementById('tripDetailsPage').style.display = 'none';
             renderTrips();
             setActiveNav('trips');
         } else if (lastPage === 'tripDetails' && lastTripId) {
             document.querySelector('.hero').style.display = 'none';
             document.querySelector('.wishlist-section').style.display = 'none';
+            document.getElementById('tripsPage').style.display = 'none';
             document.getElementById('tripDetailsPage').style.display = 'block';
+            document.getElementById('fabAddCategory').style.display = 'flex';
             currentTripId = lastTripId;
             const trip = trips.find(t => t.id === currentTripId);
             if (trip) {
@@ -748,12 +754,24 @@
                 renderCategories(trip);
                 renderTripTotals(trip);
             } else {
+                // Trip no longer exists, fall back to wishlist
                 document.getElementById('tripDetailsPage').style.display = 'none';
-                document.getElementById('tripsPage').style.display = 'block';
-                renderTrips();
+                document.getElementById('fabAddCategory').style.display = 'none';
+                document.querySelector('.hero').style.display = 'block';
+                document.querySelector('.wishlist-section').style.display = 'block';
+                localStorage.setItem('activePage', 'wishlist');
+                renderWishlist();
+                updateCategoryFilters();
+                setActiveNav('wishlist');
             }
             setActiveNav('trips');
         } else {
+            // Default: always show wishlist
+            document.querySelector('.hero').style.display = 'block';
+            document.querySelector('.wishlist-section').style.display = 'block';
+            document.getElementById('tripsPage').style.display = 'none';
+            document.getElementById('tripDetailsPage').style.display = 'none';
+            localStorage.setItem('activePage', 'wishlist');
             renderWishlist();
             updateCategoryFilters();
             setActiveNav('wishlist');
@@ -1121,6 +1139,7 @@
             document.querySelector('.wishlist-section').style.display = 'none';
             document.getElementById('tripsPage').style.display = 'block';
             document.getElementById('tripDetailsPage').style.display = 'none';
+            document.getElementById('fabAddCategory').style.display = 'none';
             renderTrips();
             setActiveNav('trips');
             closeMobileMenu();
@@ -1132,6 +1151,7 @@
             document.querySelector('.wishlist-section').style.display = 'block';
             document.getElementById('tripsPage').style.display = 'none';
             document.getElementById('tripDetailsPage').style.display = 'none';
+            document.getElementById('fabAddCategory').style.display = 'none';
             renderWishlist();
             setActiveNav('wishlist');
         }
